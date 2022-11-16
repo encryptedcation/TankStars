@@ -1,19 +1,14 @@
 package com.encryptedcation.tankstars;
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class TankStars extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
-	private Viewport viewport;
-	private Camera camera;
 
 	private Stage stage;
 
