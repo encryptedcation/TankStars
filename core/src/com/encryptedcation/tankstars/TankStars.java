@@ -1,26 +1,42 @@
 package com.encryptedcation.tankstars;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class TankStars extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
+	private Viewport viewport;
+	private Camera camera;
+
+	private Stage stage;
+
+	public void resize(int width, int height) {
+		// use true here to center the camera
+		// that's what you probably want in case of a UI
+		stage.getViewport().update(width, height, true);
+	}
 	
 	@Override
 	public void create () {
+		stage = new Stage(new StretchViewport(2688, 1242));
 		batch = new SpriteBatch();
-		img = new Texture("Sprite/Button.png");
+		img = new Texture("Texture2D/loader_2688x1242.png");
 	}
 
 	@Override
 	public void render () {
-		ScreenUtils.clear(0, 0, 0, 0);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+		stage.act();
+		stage.draw();
+		stage.getBatch().begin();
+		stage.getBatch().draw(img, 0, 0);
+		stage.getBatch().end();
 	}
 	
 	@Override
