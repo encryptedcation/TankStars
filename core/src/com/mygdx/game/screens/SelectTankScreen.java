@@ -82,15 +82,22 @@ public class SelectTankScreen implements Screen {
         stage.getBatch().draw(playerChoose, 815, 715, 320, 48);
         stage.getBatch().draw(nextButton, 1529, 469, 197, 142);
         stage.getBatch().draw(previousButton, 192, 469, 198, 142);
+        int f = 0;
 
         if (Gdx.input.getX() >1529 && Gdx.input.getX() < 1529+197 && Gdx.input.getY() > 469 && Gdx.input.getY() < 469+142) {
             stage.getBatch().draw(rightActive,1529, 469, 197, 142);
             if (Gdx.input.isTouched()) {
-                tank = new Texture("Blazer 1.png");
-                stage.getBatch().draw(tank, 350, 150, 1141, 752);
-                tankNameBanner = new Texture("Blazer.png");
-                stage.getBatch().draw(tankNameBanner, 800, 750, 357, 136);
+                this.tank.dispose();
+                stage.getBatch().draw(img, x, y);
+                this.tankNameBanner.dispose();
+                f = 1;
             }
+        }
+        if (f == 1){
+            tank = new Texture("Blazer 3.png");
+            tankNameBanner = new Texture("Blazer.png");
+            stage.getBatch().draw(tankNameBanner, 800, 750, 357, 136);
+            stage.getBatch().draw(tank, 350, 150, 754, 552);
         }
         if (Gdx.input.getX() >192 && Gdx.input.getX() < 192+198 && Gdx.input.getY() > 469 && Gdx.input.getY() < 469+142) {
             stage.getBatch().draw(leftActive,192, 469, 198, 142);
@@ -102,37 +109,22 @@ public class SelectTankScreen implements Screen {
             }
         }
         int x = TankStars.WIDTH/2 - CHOOSE_BUTTON_WIDTH/2;
-        if (flag == 1) {
-            if (Gdx.input.getX() < x + CHOOSE_BUTTON_WIDTH && Gdx.input.getX() > x && TankStars.HEIGHT - Gdx.input.getY() < CHOOSE_BUTTON_Y + CHOOSE_BUTTON_HEIGHT && TankStars.HEIGHT - Gdx.input.getY() > CHOOSE_BUTTON_Y) {
-                stage.getBatch().draw(chooseSel, x, CHOOSE_BUTTON_Y, CHOOSE_BUTTON_WIDTH, CHOOSE_BUTTON_HEIGHT);
-                if (Gdx.input.isTouched()) {
-                    flag = 2;
-                }
-            }
-        }
         if (Gdx.input.getX() < x + CHOOSE_BUTTON_WIDTH && Gdx.input.getX() > x && TankStars.HEIGHT - Gdx.input.getY() < CHOOSE_BUTTON_Y + CHOOSE_BUTTON_HEIGHT && TankStars.HEIGHT - Gdx.input.getY() > CHOOSE_BUTTON_Y) {
             stage.getBatch().draw(chooseSel, x, CHOOSE_BUTTON_Y, CHOOSE_BUTTON_WIDTH, CHOOSE_BUTTON_HEIGHT);
-            if (Gdx.input.isTouched()) {
+            if (Gdx.input.justTouched()) {
                 if (flag == 0) {
+                    playerChoose = new Texture("playerTwoChoose.png");
+                    stage.getBatch().draw(playerChoose, 815, 715, 320, 48);
                     flag = 1;
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                }
+                else {
+                    game.setScreen(new InGameScreen(game));
+                    this.dispose();
                 }
             }
         }
         else{
             stage.getBatch().draw(choose,x, CHOOSE_BUTTON_Y, CHOOSE_BUTTON_WIDTH, CHOOSE_BUTTON_HEIGHT);
-        }
-        if (flag == 1) {
-            playerChoose = new Texture("playerTwoChoose.png");
-            stage.getBatch().draw(playerChoose, 815, 715, 320, 48);
-        }
-        else if (flag == 2) {
-            game.setScreen(new InGameScreen(game));
-            dispose();
         }
         stage.getBatch().end();
     }
