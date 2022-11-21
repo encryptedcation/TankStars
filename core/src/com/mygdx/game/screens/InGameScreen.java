@@ -1,5 +1,6 @@
 package com.mygdx.game.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -8,6 +9,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.TankStars;
 
 public class InGameScreen implements Screen {
+    TankStars game;
     private Texture img;
     private Texture healthBarR;
     private Texture healthBarL;
@@ -20,6 +22,11 @@ public class InGameScreen implements Screen {
     private Texture arrowDown;
     private float CURRENT_TANK_X;
     private float CURRENT_TANK_Y;
+    private final int PAUSE_BUTTON_WIDTH = 69;
+    private final int PAUSE_BUTTON_HEIGHT = 59;
+    private final int PAUSE_BUTTON_Y = 980;
+    private Texture pauseSel;
+
 
 
     private Stage stage;
@@ -35,6 +42,8 @@ public class InGameScreen implements Screen {
         angle = new Texture("angle.png");
         pause = new Texture("pause.png");
         arrowDown = new Texture("arrowDown.png");
+        pauseSel = new Texture("pauseSel.png");
+        this.game = game;
     }
 
     @Override
@@ -60,6 +69,19 @@ public class InGameScreen implements Screen {
         // USE THE BELOW LINE WHILE IMPLEMENTING
 //        stage.getBatch().draw(arrowDown, CURRENT_TANK_X, CURRENT_TANK_Y + 200);
         stage.getBatch().draw(arrowDown, 1613, 649);
+
+        // if pause is clicked then go to PauseGameScreen
+        int x = TankStars.WIDTH/2 - PAUSE_BUTTON_WIDTH/2;
+        if (Gdx.input.getX() < 94 && Gdx.input.getX() > 25 && TankStars.HEIGHT - Gdx.input.getY() < PAUSE_BUTTON_Y + PAUSE_BUTTON_HEIGHT && TankStars.HEIGHT - Gdx.input.getY() > PAUSE_BUTTON_Y) {
+            stage.getBatch().draw(pauseSel, 25, 980);
+            if (Gdx.input.isTouched()) {
+                this.dispose();
+                game.setScreen(new PauseGameScreen(game));
+            }
+        }
+        else{
+            stage.getBatch().draw(pause, 25, 980);
+        }
         stage.getBatch().end();
     }
 
