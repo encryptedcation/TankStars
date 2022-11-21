@@ -59,17 +59,22 @@ public class MainScreen implements Screen {
         ScreenUtils.clear(0, 0, 0, 1);
         stage.getBatch().begin();
         stage.getBatch().draw(img, x, y);
-//        stage.getBatch().draw(newGameButtonActive, TankStars.WIDTH / 2 - PLAY_BUTTON_WIDTH / 2, PLAY_BUTTON_Y, PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
+
         int x = TankStars.WIDTH/2 - PLAY_BUTTON_WIDTH/2;
         if (Gdx.input.getX() < x + PLAY_BUTTON_WIDTH && Gdx.input.getX() > x && TankStars.HEIGHT - Gdx.input.getY() < PLAY_BUTTON_Y + PLAY_BUTTON_HEIGHT && TankStars.HEIGHT - Gdx.input.getY() > PLAY_BUTTON_Y) {
             stage.getBatch().draw(newGameButtonActive, x, PLAY_BUTTON_Y, PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
+            if (Gdx.input.isTouched()) {
+                game.setScreen(new SelectTankScreen());
+            }
         }
         else{
             stage.getBatch().draw(newGameButton, TankStars.WIDTH / 2 - PLAY_BUTTON_WIDTH / 2, PLAY_BUTTON_Y, PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
         }
-
         if (Gdx.input.getX() < x + RESUME_BUTTON_WIDTH && Gdx.input.getX() > x && TankStars.HEIGHT - Gdx.input.getY() < RESUME_BUTTON_Y + RESUME_BUTTON_HEIGHT && TankStars.HEIGHT - Gdx.input.getY() > RESUME_BUTTON_Y) {
             stage.getBatch().draw(resumeButtonActive, x, RESUME_BUTTON_Y, RESUME_BUTTON_WIDTH, RESUME_BUTTON_HEIGHT);
+            if (Gdx.input.isTouched()) {
+                game.setScreen(new LoadGameScreen());
+            }
         }
         else{
             stage.getBatch().draw(resumeButton, x, RESUME_BUTTON_Y, RESUME_BUTTON_WIDTH, RESUME_BUTTON_HEIGHT);
@@ -77,19 +82,14 @@ public class MainScreen implements Screen {
 
         if (Gdx.input.getX() < x + EXIT_BUTTON_WIDTH && Gdx.input.getX() > x && TankStars.HEIGHT - Gdx.input.getY() < EXIT_BUTTON_Y + EXIT_BUTTON_HEIGHT && TankStars.HEIGHT - Gdx.input.getY() > EXIT_BUTTON_Y) {
             stage.getBatch().draw(exitButtonActive, x, EXIT_BUTTON_Y, EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
+            if (Gdx.input.isTouched()) {
+                Gdx.app.exit();
+            }
         }
         else{
             stage.getBatch().draw(exitButton,x, EXIT_BUTTON_Y, EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
         }
-
-
-
-
-
         stage.getBatch().end();
-//        game.batch.begin();
-//        game.batch.draw(newGameButtonActive, TankStars.WIDTH / 2 - PLAY_BUTTON_WIDTH / 2, PLAY_BUTTON_Y, PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
-//        game.batch.end();
     }
     @Override
     public void show() {
