@@ -40,8 +40,8 @@ public class SelectTankScreen implements Screen {
         tank = new Texture("Mark_I 1.png");
         playerOneChoose = new Texture("playerOneChoose.png");
         playerTwoChoose = new Texture("playerTwoChoose.png");
-        nextButton = new Texture("rightArrow.png");
-        previousButton = new Texture("leftArrow.png");
+        nextButton = new Texture("left 4.png");
+        previousButton = new Texture("left 3.png");
         choose = new Texture("choose.png");
 //        chooseActive = new Texture("chooseActive.png");
     }
@@ -62,6 +62,8 @@ public class SelectTankScreen implements Screen {
         stage.getBatch().draw(tankNameBanner, 800, 750, 357, 136);
         stage.getBatch().draw(tank, 350, 150, 1141, 752);
         stage.getBatch().draw(playerOneChoose, 815, 715, 320, 48);
+        stage.getBatch().draw(nextButton, 1529, 469, 197, 142);
+        stage.getBatch().draw(previousButton, 192, 469, 198, 142);
         stage.getBatch().end();
     }
 
