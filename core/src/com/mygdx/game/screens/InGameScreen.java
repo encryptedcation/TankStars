@@ -50,9 +50,19 @@ public class InGameScreen implements Screen {
         pauseSel = new Texture("pauseSel.png");
         this.game = game;
         groundHeight = new ArrayList<Integer>();
-        //initial height of the ground
-        for (int i = 0; i < 1920; i++) {
-            groundHeight.add(400);
+        // initialise ground heights to hilly terrain.
+        int initialHeight = 500;
+        for (int i = 0; i < 192; i++) {
+            groundHeight.add(initialHeight);
+            if (i % 5 == 0) {
+                initialHeight += 2.5;
+            }
+            if (i % 10 == 0) {
+                initialHeight -= 2.5;
+            }
+            else {
+                initialHeight += (int) (Math.random() * 5) - 2.5;
+            }
         }
     }
 
@@ -68,8 +78,8 @@ public class InGameScreen implements Screen {
         ScreenUtils.clear(0,0,0,1);
         stage.getBatch().begin();
         stage.getBatch().draw(img, 0, 0);
-        for (int i = 0; i < 1920; i++) {
-            stage.getBatch().draw(ground, i, 0, 1, groundHeight.get(i));
+        for (int i = 0; i < 192; i++) {
+            stage.getBatch().draw(ground, i * 10, 0, 10, groundHeight.get(i));
         }
         stage.getBatch().draw(healthBarL, 338, 909);
         stage.getBatch().draw(healthBarR, 1011, 909);
