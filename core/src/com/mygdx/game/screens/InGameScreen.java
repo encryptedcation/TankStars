@@ -8,6 +8,8 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.TankStars;
 
+import java.util.ArrayList;
+
 public class InGameScreen implements Screen {
     TankStars game;
     private Texture img;
@@ -26,11 +28,14 @@ public class InGameScreen implements Screen {
     private final int PAUSE_BUTTON_HEIGHT = 59;
     private final int PAUSE_BUTTON_Y = 980;
     private Texture pauseSel;
+    private ArrayList<Integer> groundHeight; // used to implement destructible terrain.
+    private Texture ground;
 
 
 
     private Stage stage;
     public InGameScreen(TankStars game) {
+        ground = new Texture("ground.jpeg");
         stage = new Stage(new StretchViewport(1920, 1080));
         img = new Texture("nightBG.png");
         healthBarR = new Texture("helthR.png");
@@ -44,6 +49,11 @@ public class InGameScreen implements Screen {
         arrowDown = new Texture("arrowDown.png");
         pauseSel = new Texture("pauseSel.png");
         this.game = game;
+        groundHeight = new ArrayList<Integer>();
+        //initial height of the ground
+        for (int i = 0; i < 1920; i++) {
+            groundHeight.add(400);
+        }
     }
 
     @Override
@@ -58,6 +68,9 @@ public class InGameScreen implements Screen {
         ScreenUtils.clear(0,0,0,1);
         stage.getBatch().begin();
         stage.getBatch().draw(img, 0, 0);
+        for (int i = 0; i < 1920; i++) {
+            stage.getBatch().draw(ground, i, 0, 1, groundHeight.get(i));
+        }
         stage.getBatch().draw(healthBarL, 338, 909);
         stage.getBatch().draw(healthBarR, 1011, 909);
         stage.getBatch().draw(vs, 930, 920);
@@ -69,6 +82,7 @@ public class InGameScreen implements Screen {
         // USE THE BELOW LINE WHILE IMPLEMENTING
 //        stage.getBatch().draw(arrowDown, CURRENT_TANK_X, CURRENT_TANK_Y + 200);
         stage.getBatch().draw(arrowDown, 1613, 649);
+        //draw ground here
 
         // if pause is clicked then go to PauseGameScreen
         int x = TankStars.WIDTH/2 - PAUSE_BUTTON_WIDTH/2;
