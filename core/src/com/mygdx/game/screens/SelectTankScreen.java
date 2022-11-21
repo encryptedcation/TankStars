@@ -111,7 +111,7 @@ public class SelectTankScreen implements Screen {
                     stage.getBatch().draw(playerChoose, 815, 715, 320, 48);
                     flag = 1;
                 }
-                else {
+                else if (flag == 1) {
                     game.setScreen(new InGameScreen(game));
                     this.dispose();
                 }
