@@ -38,6 +38,11 @@ public class SelectTankScreen implements Screen {
     private Texture nextTank;
     private Texture currTank;
     private Texture prevTank;
+    private Texture choose;
+    private Texture chooseSel;
+    private int CHOOSE_BUTTON_WIDTH = 319;
+    private int CHOOSE_BUTTON_HEIGHT = 146;
+    private int CHOOSE_BUTTON_Y = 18;
 
     public SelectTankScreen(TankStars game) {
         img = new Texture("bg-1.png");
@@ -51,6 +56,8 @@ public class SelectTankScreen implements Screen {
         previousButton = new Texture("left 3.png");
         rightActive = new Texture("left 4 sel.png");
         leftActive = new Texture("left 3 sel.png");
+        choose = new Texture("choose.png");
+        chooseSel = new Texture("chooseSel.png");
         stage = new Stage(new StretchViewport(1920, 1080));
     }
     @Override
@@ -95,6 +102,20 @@ public class SelectTankScreen implements Screen {
                 stage.getBatch().draw(tankNameBanner, 800, 750, 357, 136);
             }
         }
+        int x = TankStars.WIDTH/2 - CHOOSE_BUTTON_WIDTH/2;
+
+        if (Gdx.input.getX() < x + CHOOSE_BUTTON_WIDTH && Gdx.input.getX() > x && TankStars.HEIGHT - Gdx.input.getY() < CHOOSE_BUTTON_Y + CHOOSE_BUTTON_HEIGHT && TankStars.HEIGHT - Gdx.input.getY() > CHOOSE_BUTTON_Y) {
+            stage.getBatch().draw(chooseSel, x, CHOOSE_BUTTON_Y, CHOOSE_BUTTON_WIDTH, CHOOSE_BUTTON_HEIGHT);
+            if (Gdx.input.isTouched()) {
+                playerChoose = new Texture("playerTwoChoose.png");
+                stage.getBatch().draw(playerChoose, 815, 715, 320, 48);
+            }
+        }
+        else{
+            stage.getBatch().draw(choose,x, CHOOSE_BUTTON_Y, CHOOSE_BUTTON_WIDTH, CHOOSE_BUTTON_HEIGHT);
+        }
+
+
         stage.getBatch().end();
     }
 
