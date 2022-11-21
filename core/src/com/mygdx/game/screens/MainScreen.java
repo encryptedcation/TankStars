@@ -21,7 +21,7 @@ public class MainScreen implements Screen {
     private float x;
     private float y;
     private Stage stage;
-    TankStars game;
+    final TankStars game;
     private static final int PLAY_BUTTON_WIDTH = 319;
     private static final int PLAY_BUTTON_HEIGHT = 146;
     private static final int EXIT_BUTTON_WIDTH = 319;

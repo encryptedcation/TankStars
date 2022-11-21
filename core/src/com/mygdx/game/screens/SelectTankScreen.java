@@ -17,14 +17,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 
 import java.awt.*;
+import java.util.Objects;
 
 public class SelectTankScreen implements Screen {
     private float x;
     private float y;
     private Stage stage;
-    TankStars game;
+    final TankStars game;
     private Texture img;
-    // create animation variable
     private Texture tankStars;
 
     private Texture tankNameBanner;
@@ -43,8 +43,10 @@ public class SelectTankScreen implements Screen {
     private int CHOOSE_BUTTON_WIDTH = 319;
     private int CHOOSE_BUTTON_HEIGHT = 146;
     private int CHOOSE_BUTTON_Y = 18;
+    private int flag = 0;
+    public SelectTankScreen(final TankStars game) {
+        this.game = game;
 
-    public SelectTankScreen(TankStars game) {
         img = new Texture("bg-1.png");
         tankNameBanner = new Texture("Mark1.png");
 //        tankHP = new Texture("tankHP.png");
@@ -70,7 +72,6 @@ public class SelectTankScreen implements Screen {
 
         stage.act();
         stage.draw();
-        //clear with background
         ScreenUtils.clear(0, 0, 0, 1);
         stage.getBatch().begin();
         stage.getBatch().draw(img, x, y);
@@ -83,7 +84,6 @@ public class SelectTankScreen implements Screen {
         stage.getBatch().draw(nextButton, 1529, 469, 197, 142);
         stage.getBatch().draw(previousButton, 192, 469, 198, 142);
 
-        // if choose clicked then change tank asset to "Blazer 1.png"
         if (Gdx.input.getX() >1529 && Gdx.input.getX() < 1529+197 && Gdx.input.getY() > 469 && Gdx.input.getY() < 469+142) {
             stage.getBatch().draw(rightActive,1529, 469, 197, 142);
             if (Gdx.input.isTouched()) {
@@ -103,19 +103,23 @@ public class SelectTankScreen implements Screen {
             }
         }
         int x = TankStars.WIDTH/2 - CHOOSE_BUTTON_WIDTH/2;
-
         if (Gdx.input.getX() < x + CHOOSE_BUTTON_WIDTH && Gdx.input.getX() > x && TankStars.HEIGHT - Gdx.input.getY() < CHOOSE_BUTTON_Y + CHOOSE_BUTTON_HEIGHT && TankStars.HEIGHT - Gdx.input.getY() > CHOOSE_BUTTON_Y) {
             stage.getBatch().draw(chooseSel, x, CHOOSE_BUTTON_Y, CHOOSE_BUTTON_WIDTH, CHOOSE_BUTTON_HEIGHT);
             if (Gdx.input.isTouched()) {
-                playerChoose = new Texture("playerTwoChoose.png");
-                stage.getBatch().draw(playerChoose, 815, 715, 320, 48);
+                if (flag == 0) {
+                    playerChoose = new Texture("playerTwoChoose.png");
+                    stage.getBatch().draw(playerChoose, 815, 715, 320, 48);
+                    flag = 1;
+                }
+                else {
+                    game.setScreen(new InGameScreen(game));
+                    this.dispose();
+                }
             }
         }
         else{
             stage.getBatch().draw(choose,x, CHOOSE_BUTTON_Y, CHOOSE_BUTTON_WIDTH, CHOOSE_BUTTON_HEIGHT);
         }
-
-
         stage.getBatch().end();
     }
 
