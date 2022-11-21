@@ -1,5 +1,6 @@
 package com.mygdx.game.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -18,6 +19,8 @@ public class PauseGameScreen implements Screen {
     private Texture saveGameSel;
     private Texture restart;
     private Texture restartSel;
+    private final int WIDTH = 345;
+    private final int HEIGHT = 150;
 
 
 
@@ -50,7 +53,40 @@ public class PauseGameScreen implements Screen {
         stage.getBatch().draw(mainMenu, 793, 578);
         stage.getBatch().draw(saveGame, 793, 403);
         stage.getBatch().draw(restart, 793, 226);
-        stage.getBatch().end();
+        int x = TankStars.WIDTH / 2 - WIDTH / 2;
+
+        if (Gdx.input.getX() < x + WIDTH && Gdx.input.getX() > x && TankStars.HEIGHT - Gdx.input.getY() < 754 + HEIGHT && TankStars.HEIGHT - Gdx.input.getY() > 754) {
+            stage.getBatch().draw(resumeSel, 793, 754, WIDTH, HEIGHT);
+            if (Gdx.input.isTouched()) {
+                this.dispose();
+                game.setScreen(new InGameScreen(game));
+            }
+        }
+        if (Gdx.input.getX() < x + WIDTH && Gdx.input.getX() > x && TankStars.HEIGHT - Gdx.input.getY() < 578 + HEIGHT && TankStars.HEIGHT - Gdx.input.getY() > 578) {
+            stage.getBatch().draw(mainMenuSel, 793, 578, WIDTH, HEIGHT);
+            if (Gdx.input.isTouched()) {
+                game.setScreen(new MainScreen(game));
+                this.dispose();
+            }
+        }
+        if (Gdx.input.getX() < x + WIDTH && Gdx.input.getX() > x && TankStars.HEIGHT - Gdx.input.getY() < 403 + HEIGHT && TankStars.HEIGHT - Gdx.input.getY() > 403) {
+            stage.getBatch().draw(saveGameSel, 793, 403, WIDTH, HEIGHT);
+            if (Gdx.input.isTouched()) {
+                this.dispose();
+//                game.setScreen(new SaveGameScreen(game));
+
+            }
+        }
+
+        if (Gdx.input.getX() < x + WIDTH && Gdx.input.getX() > x && TankStars.HEIGHT - Gdx.input.getY() < 226 + HEIGHT && TankStars.HEIGHT - Gdx.input.getY() > 226) {
+            stage.getBatch().draw(restartSel, x, 226, WIDTH, HEIGHT);
+            if (Gdx.input.isTouched()) {
+                this.dispose();
+                game.setScreen(new SelectTankScreen(game));
+
+            }
+        }
+                stage.getBatch().end();
     }
 
     @Override

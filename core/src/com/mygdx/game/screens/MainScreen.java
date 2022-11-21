@@ -75,7 +75,7 @@ public class MainScreen implements Screen {
             stage.getBatch().draw(resumeButtonActive, x, RESUME_BUTTON_Y, RESUME_BUTTON_WIDTH, RESUME_BUTTON_HEIGHT);
             if (Gdx.input.isTouched()) {
                 this.dispose();
-                game.setScreen(new LoadGameScreen());
+                game.setScreen(new LoadGameScreen(game));
 
             }
         }
