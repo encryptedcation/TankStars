@@ -69,7 +69,6 @@ public class SelectTankScreen implements Screen {
 
     @Override
     public void render(float delta) {
-
         stage.act();
         stage.draw();
         ScreenUtils.clear(0, 0, 0, 1);
@@ -103,22 +102,37 @@ public class SelectTankScreen implements Screen {
             }
         }
         int x = TankStars.WIDTH/2 - CHOOSE_BUTTON_WIDTH/2;
+        if (flag == 1) {
+            if (Gdx.input.getX() < x + CHOOSE_BUTTON_WIDTH && Gdx.input.getX() > x && TankStars.HEIGHT - Gdx.input.getY() < CHOOSE_BUTTON_Y + CHOOSE_BUTTON_HEIGHT && TankStars.HEIGHT - Gdx.input.getY() > CHOOSE_BUTTON_Y) {
+                stage.getBatch().draw(chooseSel, x, CHOOSE_BUTTON_Y, CHOOSE_BUTTON_WIDTH, CHOOSE_BUTTON_HEIGHT);
+                if (Gdx.input.isTouched()) {
+                    flag = 2;
+                }
+            }
+        }
         if (Gdx.input.getX() < x + CHOOSE_BUTTON_WIDTH && Gdx.input.getX() > x && TankStars.HEIGHT - Gdx.input.getY() < CHOOSE_BUTTON_Y + CHOOSE_BUTTON_HEIGHT && TankStars.HEIGHT - Gdx.input.getY() > CHOOSE_BUTTON_Y) {
             stage.getBatch().draw(chooseSel, x, CHOOSE_BUTTON_Y, CHOOSE_BUTTON_WIDTH, CHOOSE_BUTTON_HEIGHT);
             if (Gdx.input.isTouched()) {
                 if (flag == 0) {
-                    playerChoose = new Texture("playerTwoChoose.png");
-                    stage.getBatch().draw(playerChoose, 815, 715, 320, 48);
                     flag = 1;
-                }
-                else {
-                    game.setScreen(new InGameScreen(game));
-                    this.dispose();
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
         else{
             stage.getBatch().draw(choose,x, CHOOSE_BUTTON_Y, CHOOSE_BUTTON_WIDTH, CHOOSE_BUTTON_HEIGHT);
+        }
+        if (flag == 1) {
+            playerChoose = new Texture("playerTwoChoose.png");
+            stage.getBatch().draw(playerChoose, 815, 715, 320, 48);
+        }
+        else if (flag == 2) {
+            game.setScreen(new InGameScreen(game));
+            dispose();
         }
         stage.getBatch().end();
     }
