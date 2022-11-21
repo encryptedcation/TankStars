@@ -68,6 +68,19 @@ public class MainScreen implements Screen {
             stage.getBatch().draw(newGameButton, TankStars.WIDTH / 2 - PLAY_BUTTON_WIDTH / 2, PLAY_BUTTON_Y, PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
         }
 
+        if (Gdx.input.getX() < x + RESUME_BUTTON_WIDTH && Gdx.input.getX() > x && TankStars.HEIGHT - Gdx.input.getY() < RESUME_BUTTON_Y + 260 + RESUME_BUTTON_HEIGHT && TankStars.HEIGHT - Gdx.input.getY() > RESUME_BUTTON_Y + 180) {
+            stage.getBatch().draw(resumeButtonActive, x, RESUME_BUTTON_Y + 225, RESUME_BUTTON_WIDTH, RESUME_BUTTON_HEIGHT);
+        }
+        else{
+            stage.getBatch().draw(resumeButton, x, RESUME_BUTTON_Y + 225, RESUME_BUTTON_WIDTH, RESUME_BUTTON_HEIGHT);
+        }
+
+//        if (Gdx.input.getX() < x + PLAY_BUTTON_WIDTH && Gdx.input.getX() > x && TankStars.HEIGHT - Gdx.input.getY() < PLAY_BUTTON_Y + PLAY_BUTTON_HEIGHT && TankStars.HEIGHT - Gdx.input.getY() > PLAY_BUTTON_Y) {
+//            stage.getBatch().draw(newGameButtonActive, x, PLAY_BUTTON_Y, PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
+//        }
+//        else{
+//            stage.getBatch().draw(newGameButton, TankStars.WIDTH / 2 - PLAY_BUTTON_WIDTH / 2, PLAY_BUTTON_Y, PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
+//        }
 
 
 
