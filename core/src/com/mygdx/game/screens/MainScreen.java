@@ -64,7 +64,8 @@ public class MainScreen implements Screen {
         if (Gdx.input.getX() < x + PLAY_BUTTON_WIDTH && Gdx.input.getX() > x && TankStars.HEIGHT - Gdx.input.getY() < PLAY_BUTTON_Y + PLAY_BUTTON_HEIGHT && TankStars.HEIGHT - Gdx.input.getY() > PLAY_BUTTON_Y) {
             stage.getBatch().draw(newGameButtonActive, x, PLAY_BUTTON_Y, PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
             if (Gdx.input.isTouched()) {
-                game.setScreen(new SelectTankScreen());
+                this.dispose();
+                game.setScreen(new SelectTankScreen(game));
             }
         }
         else{
@@ -73,7 +74,9 @@ public class MainScreen implements Screen {
         if (Gdx.input.getX() < x + RESUME_BUTTON_WIDTH && Gdx.input.getX() > x && TankStars.HEIGHT - Gdx.input.getY() < RESUME_BUTTON_Y + RESUME_BUTTON_HEIGHT && TankStars.HEIGHT - Gdx.input.getY() > RESUME_BUTTON_Y) {
             stage.getBatch().draw(resumeButtonActive, x, RESUME_BUTTON_Y, RESUME_BUTTON_WIDTH, RESUME_BUTTON_HEIGHT);
             if (Gdx.input.isTouched()) {
+                this.dispose();
                 game.setScreen(new LoadGameScreen());
+
             }
         }
         else{
@@ -83,6 +86,7 @@ public class MainScreen implements Screen {
         if (Gdx.input.getX() < x + EXIT_BUTTON_WIDTH && Gdx.input.getX() > x && TankStars.HEIGHT - Gdx.input.getY() < EXIT_BUTTON_Y + EXIT_BUTTON_HEIGHT && TankStars.HEIGHT - Gdx.input.getY() > EXIT_BUTTON_Y) {
             stage.getBatch().draw(exitButtonActive, x, EXIT_BUTTON_Y, EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
             if (Gdx.input.isTouched()) {
+                this.dispose();
                 Gdx.app.exit();
             }
         }

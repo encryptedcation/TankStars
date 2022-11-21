@@ -15,11 +15,9 @@ public class TankStars extends Game {
 	public SpriteBatch batch;
 	public static int WIDTH = 1920;
 	public static int HEIGHT = 1080;
-//	private Stage stage;
 
 	@Override
 	public void create () {
-//		stage = new Stage(new StretchViewport(2688, 1242));
 		batch = new SpriteBatch();
 		this.setScreen(new MainScreen(this));
 	}
@@ -27,6 +25,5 @@ public class TankStars extends Game {
 	@Override
 	public void render () {
 		super.render();
-//		stage = new Stage(new StretchViewport(2688, 1242));
 	}
 }
