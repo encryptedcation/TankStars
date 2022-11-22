@@ -55,6 +55,7 @@ public class PauseGameScreen implements Screen {
         stage.getBatch().draw(restart, 793, 226);
         int x = TankStars.WIDTH / 2 - WIDTH / 2;
 
+        // if resume is selected
         if (Gdx.input.getX() < x + WIDTH && Gdx.input.getX() > x && TankStars.HEIGHT - Gdx.input.getY() < 754 + HEIGHT && TankStars.HEIGHT - Gdx.input.getY() > 754) {
             stage.getBatch().draw(resumeSel, 793, 754, WIDTH, HEIGHT);
             if (Gdx.input.isTouched()) {
@@ -62,22 +63,26 @@ public class PauseGameScreen implements Screen {
                 game.setScreen(new InGameScreen(game));
             }
         }
+
+        // if main menu is selected
         if (Gdx.input.getX() < x + WIDTH && Gdx.input.getX() > x && TankStars.HEIGHT - Gdx.input.getY() < 578 + HEIGHT && TankStars.HEIGHT - Gdx.input.getY() > 578) {
             stage.getBatch().draw(mainMenuSel, 793, 578, WIDTH, HEIGHT);
-            if (Gdx.input.isTouched()) {
+            if (Gdx.input.justTouched()) {
                 game.setScreen(new MainScreen(game));
                 this.dispose();
             }
         }
+
+        // if save game is clicked
         if (Gdx.input.getX() < x + WIDTH && Gdx.input.getX() > x && TankStars.HEIGHT - Gdx.input.getY() < 403 + HEIGHT && TankStars.HEIGHT - Gdx.input.getY() > 403) {
             stage.getBatch().draw(saveGameSel, 793, 403, WIDTH, HEIGHT);
-            if (Gdx.input.isTouched()) {
+            if (Gdx.input.justTouched()) {
                 this.dispose();
-//                game.setScreen(new SaveGameScreen(game));
-
+                game.setScreen(new SaveGameScreen(game));
             }
         }
 
+        // if restart is clicked
         if (Gdx.input.getX() < x + WIDTH && Gdx.input.getX() > x && TankStars.HEIGHT - Gdx.input.getY() < 226 + HEIGHT && TankStars.HEIGHT - Gdx.input.getY() > 226) {
             stage.getBatch().draw(restartSel, x, 226, WIDTH, HEIGHT);
             if (Gdx.input.isTouched()) {
