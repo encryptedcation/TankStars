@@ -28,7 +28,7 @@ public class InGameScreen implements Screen {
     private final int PAUSE_BUTTON_HEIGHT = 59;
     private final int PAUSE_BUTTON_Y = 980;
     private Texture pauseSel;
-    private ArrayList<Integer> groundHeight; // used to implement destructible terrain.
+    private ArrayList<Float> groundHeight; // used to implement destructible terrain.
     private Texture ground;
 
 
@@ -49,19 +49,19 @@ public class InGameScreen implements Screen {
         arrowDown = new Texture("arrowDown.png");
         pauseSel = new Texture("pauseSel.png");
         this.game = game;
-        groundHeight = new ArrayList<Integer>();
+        groundHeight = new ArrayList<Float>();
         // initialise ground heights to hilly terrain.
-        int initialHeight = 500;
-        for (int i = 0; i < 192; i++) {
+        float initialHeight = 500;
+        int flagIncreasing = 0;
+        for (int i = 0; i < 384; i++) {
             groundHeight.add(initialHeight);
-            if (i % 5 == 0) {
-                initialHeight += 2.5;
+            if (i%20 == 0 || i%47==0 || i%56==0) {
+                flagIncreasing = 1- flagIncreasing;
             }
-            if (i % 10 == 0) {
-                initialHeight -= 2.5;
-            }
-            else {
-                initialHeight += (int) (Math.random() * 5) - 2.5;
+            if (flagIncreasing == 1) {
+                initialHeight += Math.random()*2;
+            } else {
+                initialHeight -= Math.random();
             }
         }
     }
@@ -78,8 +78,8 @@ public class InGameScreen implements Screen {
         ScreenUtils.clear(0,0,0,1);
         stage.getBatch().begin();
         stage.getBatch().draw(img, 0, 0);
-        for (int i = 0; i < 192; i++) {
-            stage.getBatch().draw(ground, i * 10, 0, 10, groundHeight.get(i));
+        for (int i = 0; i < 384; i++) {
+            stage.getBatch().draw(ground, i * 5, 0, 5, groundHeight.get(i));
         }
         stage.getBatch().draw(healthBarL, 338, 909);
         stage.getBatch().draw(healthBarR, 1011, 909);
