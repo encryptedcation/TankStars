@@ -87,13 +87,13 @@ public class SelectTankScreen implements Screen {
         if (Gdx.input.getX() >1529 && Gdx.input.getX() < 1529+197 && Gdx.input.getY() > 469 && Gdx.input.getY() < 469+142) {
             stage.getBatch().draw(rightActive,1529, 469, 197, 142);
             if (Gdx.input.isTouched()) {
-                this.tank.dispose();
-                stage.getBatch().draw(img, x, y);
-                this.tankNameBanner.dispose();
                 f = 1;
             }
         }
         if (f == 1){
+            this.tank.dispose();
+            stage.getBatch().draw(img, x, y);
+            this.tankNameBanner.dispose();
             tank = new Texture("Blazer 3.png");
             tankNameBanner = new Texture("Blazer.png");
             stage.getBatch().draw(tankNameBanner, 800, 750, 357, 136);
