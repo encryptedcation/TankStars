@@ -103,19 +103,19 @@ public class InGameScreen implements Screen {
         stage.act();
         stage.draw();
         ScreenUtils.clear(0,0,0,1);
-        if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)){
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             x = x + 4;
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)){
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)){
             x = x - 4;
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)){
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)){
             x2 = x2 + 4;
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.UP)){
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)){
             x2 = x2 - 4;
         }
 
