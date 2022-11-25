@@ -143,11 +143,11 @@ public class InGameScreen implements Screen {
         stage.getBatch().draw(power, 213, 540);
         stage.getBatch().draw(angle, 295, 540);
         stage.getBatch().draw(pause, 25, 980);
-        stage.getBatch().draw(aim, aimPositionX, aimPositionY);
         stage.getBatch().draw(smallBlazer, x2, 455);
         stage.getBatch().draw(smallMark, x, 450);
         stage.getBatch().draw(sliderBar, 261, 193);
         stage.getBatch().draw(sliderButton, sliderPositionX, sliderPositionY);
+        stage.getBatch().draw(aim, aimPositionX, aimPositionY);
         // move slider Button
         if(Gdx.input.justTouched() && Gdx.input.getX() > 261 && Gdx.input.getX() < 261 + sliderBar.getWidth() && Gdx.input.getY() > 1080 - 193 - sliderBar.getHeight() && Gdx.input.getY() < 1080 - 193) {
             sliderControl = true;
@@ -180,13 +180,13 @@ public class InGameScreen implements Screen {
             aimControl = true;
         }
         if (aimControl) {
-            //limiting radius is 100 px
-            if (Math.sqrt(Math.pow(Gdx.input.getX() - 1500 - aim.getWidth()/2, 2) + Math.pow(Gdx.input.getY() - 1080 + 200 + aim.getHeight()/2, 2)) < 100) {
+            //limiting radius is 80 px
+            if (Math.sqrt(Math.pow(Gdx.input.getX() - 1500 - aim.getWidth()/2, 2) + Math.pow(Gdx.input.getY() - 1080 + 200 + aim.getHeight()/2, 2)) < 80) {
                 aimPositionX = Gdx.input.getX() - aim.getWidth()/2;
                 aimPositionY = 1080 - Gdx.input.getY() - aim.getHeight()/2;
             } else {
-                aimPositionX = (int)(1500 + 100 * Math.cos(Math.atan2(Gdx.input.getY() - 1080 + 200 + aim.getHeight()/2, Gdx.input.getX() - 1500 - aim.getWidth()/2)));
-                aimPositionY = (int)(200 - 100 * Math.sin(Math.atan2(Gdx.input.getY() - 1080 + 200 + aim.getHeight()/2, Gdx.input.getX() - 1500 - aim.getWidth()/2)));
+                aimPositionX = (int)(1500 + 80 * Math.cos(Math.atan2(Gdx.input.getY() - 1080 + 200 + aim.getHeight()/2, Gdx.input.getX() - 1500 - aim.getWidth()/2)));
+                aimPositionY = (int)(200 - 80 * Math.sin(Math.atan2(Gdx.input.getY() - 1080 + 200 + aim.getHeight()/2, Gdx.input.getX() - 1500 - aim.getWidth()/2)));
             }
         }
         if (aimControl && !Gdx.input.isTouched()) {
