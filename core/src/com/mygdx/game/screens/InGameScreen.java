@@ -136,6 +136,8 @@ public class InGameScreen implements Screen {
         stage.getBatch().draw(aim, 1500, 200);
         stage.getBatch().draw(smallBlazer, x2, 455);
         stage.getBatch().draw(smallMark, x, 450);
+        stage.getBatch().draw(sliderBar, 261, 193);
+        stage.getBatch().draw(sliderButton, 341, 193);
 
 
         // USE THE BELOW LINE WHILE IMPLEMENTING
