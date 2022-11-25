@@ -30,6 +30,7 @@ public class InGameScreen implements Screen {
     private Texture pauseSel;
     private ArrayList<Float> groundHeight; // used to implement destructible terrain.
     private Texture ground;
+    private Texture aim;
 
 
 
@@ -48,6 +49,7 @@ public class InGameScreen implements Screen {
         pause = new Texture("pause.png");
         arrowDown = new Texture("arrowDown.png");
         pauseSel = new Texture("pauseSel.png");
+        aim = new Texture("aim.png");
         this.game = game;
         groundHeight = new ArrayList<Float>();
         // initialise ground heights to hilly terrain.
@@ -89,6 +91,7 @@ public class InGameScreen implements Screen {
         stage.getBatch().draw(power, 213, 540);
         stage.getBatch().draw(angle, 295, 540);
         stage.getBatch().draw(pause, 25, 980);
+        stage.getBatch().draw(aim, 1500, 200);
         // USE THE BELOW LINE WHILE IMPLEMENTING
 //        stage.getBatch().draw(arrowDown, CURRENT_TANK_X, CURRENT_TANK_Y + 200);
         stage.getBatch().draw(arrowDown, 1613, 649);
