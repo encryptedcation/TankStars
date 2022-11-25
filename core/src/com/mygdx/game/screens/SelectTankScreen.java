@@ -58,8 +58,8 @@ public class SelectTankScreen implements Screen {
         previousButton = new Texture("left 3.png");
         rightActive = new Texture("left 4 sel.png");
         leftActive = new Texture("left 3 sel.png");
-        choose = new Texture("choose.png");
-        chooseSel = new Texture("chooseSel.png");
+        choose = new Texture("Group 22.png");
+        chooseSel = new Texture("Group 21.png");
         stage = new Stage(new StretchViewport(1920, 1080));
     }
     @Override
@@ -83,6 +83,7 @@ public class SelectTankScreen implements Screen {
         stage.getBatch().draw(nextButton, 1529, 469, 197, 142);
         stage.getBatch().draw(previousButton, 192, 469, 198, 142);
         int f = 0;
+        int currTank = 1;
 
         if (Gdx.input.getX() >1529 && Gdx.input.getX() < 1529+197 && Gdx.input.getY() > 469 && Gdx.input.getY() < 469+142) {
             stage.getBatch().draw(rightActive,1529, 469, 197, 142);
@@ -98,6 +99,7 @@ public class SelectTankScreen implements Screen {
             tankNameBanner = new Texture("Blazer.png");
             stage.getBatch().draw(tankNameBanner, 800, 750, 357, 136);
             stage.getBatch().draw(tank, 350, 150, 754, 552);
+            currTank = 2;
         }
         if (Gdx.input.getX() >192 && Gdx.input.getX() < 192+198 && Gdx.input.getY() > 469 && Gdx.input.getY() < 469+142) {
             stage.getBatch().draw(leftActive,192, 469, 198, 142);
@@ -108,6 +110,31 @@ public class SelectTankScreen implements Screen {
                 stage.getBatch().draw(tankNameBanner, 800, 750, 357, 136);
             }
         }
+
+//        if (currTank == 2) {
+//            if (Gdx.input.getX() > 1529 && Gdx.input.getX() < 1529 + 197 && Gdx.input.getY() > 469 && Gdx.input.getY() < 469 + 142) {
+//                stage.getBatch().draw(rightActive, 1529, 469, 197, 142);
+//                if (Gdx.input.justTouched()) {
+//                    f = 2;
+//                }
+//            } else if (Gdx.input.getX() > 192 && Gdx.input.getX() < 192 + 198 && Gdx.input.getY() > 469 && Gdx.input.getY() < 469 + 142) {
+//                stage.getBatch().draw(leftActive, 192, 469, 198, 142);
+//                if (Gdx.input.isTouched()) {
+//                    tank = new Texture("Blazer 3.png");
+//                    stage.getBatch().draw(tank, 350, 150, 1141, 752);
+//                    tankNameBanner = new Texture("Blazer.png");
+//                    stage.getBatch().draw(tankNameBanner, 800, 750, 357, 136);
+//                }
+//            }
+//        }
+
+//        if (f == 2){
+//            tank = new Texture("Blazer 3.png");
+//            tankNameBanner = new Texture("Blazer.png");
+//            stage.getBatch().draw(tankNameBanner, 800, 750, 357, 136);
+//            stage.getBatch().draw(tank, 350, 150, 754, 552);
+//        }
+
         int x = TankStars.WIDTH/2 - CHOOSE_BUTTON_WIDTH/2;
         if (Gdx.input.getX() < x + CHOOSE_BUTTON_WIDTH && Gdx.input.getX() > x && TankStars.HEIGHT - Gdx.input.getY() < CHOOSE_BUTTON_Y + CHOOSE_BUTTON_HEIGHT && TankStars.HEIGHT - Gdx.input.getY() > CHOOSE_BUTTON_Y) {
             stage.getBatch().draw(chooseSel, x, CHOOSE_BUTTON_Y, CHOOSE_BUTTON_WIDTH, CHOOSE_BUTTON_HEIGHT);

@@ -31,6 +31,8 @@ public class InGameScreen implements Screen {
     private ArrayList<Float> groundHeight; // used to implement destructible terrain.
     private Texture ground;
     private Texture aim;
+    private Texture fireActive;
+    private Texture fuelActive;
 
 
 
@@ -39,10 +41,12 @@ public class InGameScreen implements Screen {
         ground = new Texture("ground.jpeg");
         stage = new Stage(new StretchViewport(1920, 1080));
         img = new Texture("nightBG.png");
-        healthBarR = new Texture("helthR.png");
-        healthBarL = new Texture("helth.png");
+        healthBarR = new Texture("helth.png");
+        healthBarL = new Texture("helthR.png");
         vs = new Texture("vs.png");
-        fire = new Texture("fire.png");
+        fire = new Texture("FIRE.png");
+        fireActive = new Texture("FIREACTIV.png");
+        fuelActive = new Texture("FUEL-1.png");
         fuel = new Texture("fuel.png");
         power = new Texture("power.png");
         angle = new Texture("angle.png");

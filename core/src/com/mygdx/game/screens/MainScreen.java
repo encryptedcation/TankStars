@@ -38,12 +38,12 @@ public class MainScreen implements Screen {
         this.game = game;
         stage = new Stage(new StretchViewport(1920, 1080));
         img = new Texture("GameLoading - 01.png");
-        newGameButton = new Texture("newGame.png");
-        newGameButtonActive = new Texture("newGameSel.png");
+        newGameButton = new Texture("Group 28.png");
+        newGameButtonActive = new Texture("Group 29.png");
         exitButton = new Texture("exit.png");
-        exitButtonActive = new Texture("exit-1.png");
-        resumeButton = new Texture("loadSaved.png");
-        resumeButtonActive = new Texture("loadSavedSel.png");
+        exitButtonActive = new Texture("exitSel.png");
+        resumeButton = new Texture("Group 24.png");
+        resumeButtonActive = new Texture("Group 23.png");
         x = 0;
         y = 0;
     }
