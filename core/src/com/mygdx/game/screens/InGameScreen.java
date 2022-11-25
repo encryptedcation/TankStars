@@ -205,6 +205,14 @@ public class InGameScreen implements Screen {
         stage.getBatch().draw(arrowDown, 1613, 649);
         //draw ground here
 
+
+
+        // if hovered over fuel button then it changes to fuelButtonActive
+
+        if (Gdx.input.getX() > 261 && Gdx.input.getX() < 261 + fuel.getWidth() && Gdx.input.getY() > 1080 - 293 - fuel.getHeight() && Gdx.input.getY() < 1080 - 293) {
+            stage.getBatch().draw(fuelActive, 261, 293);
+        }
+
         // if pause is clicked then go to PauseGameScreen
         int x = TankStars.WIDTH/2 - PAUSE_BUTTON_WIDTH/2;
         if (Gdx.input.getX() < 94 && Gdx.input.getX() > 25 && TankStars.HEIGHT - Gdx.input.getY() < PAUSE_BUTTON_Y + PAUSE_BUTTON_HEIGHT && TankStars.HEIGHT - Gdx.input.getY() > PAUSE_BUTTON_Y) {
