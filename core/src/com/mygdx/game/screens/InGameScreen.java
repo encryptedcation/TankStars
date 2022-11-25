@@ -1,6 +1,7 @@
 package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -35,7 +36,8 @@ public class InGameScreen implements Screen {
     private Texture fuelActive;
     private Texture smallBlazer;
     private Texture smallMark;
-
+    private float x  = 204;
+    private float x2 = 1566;
 
     private Stage stage;
     public InGameScreen(TankStars game) {
@@ -85,6 +87,22 @@ public class InGameScreen implements Screen {
         stage.act();
         stage.draw();
         ScreenUtils.clear(0,0,0,1);
+        if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)){
+            x = x + 4;
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)){
+            x = x - 4;
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)){
+            x2 = x2 + 4;
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.UP)){
+            x2 = x2 - 4;
+        }
+
         stage.getBatch().begin();
         stage.getBatch().draw(img, 0, 0);
 //        for (int i = 0; i < 384; i++) {
@@ -100,8 +118,10 @@ public class InGameScreen implements Screen {
         stage.getBatch().draw(angle, 295, 540);
         stage.getBatch().draw(pause, 25, 980);
         stage.getBatch().draw(aim, 1500, 200);
-        stage.getBatch().draw(smallBlazer, 1566, 455);
-        stage.getBatch().draw(smallMark, 204, 450);
+        stage.getBatch().draw(smallBlazer, x2, 455);
+        stage.getBatch().draw(smallMark, x, 450);
+
+
         // USE THE BELOW LINE WHILE IMPLEMENTING
 //        stage.getBatch().draw(arrowDown, CURRENT_TANK_X, CURRENT_TANK_Y + 200);
         stage.getBatch().draw(arrowDown, 1613, 649);
