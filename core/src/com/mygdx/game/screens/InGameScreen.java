@@ -170,6 +170,10 @@ public class InGameScreen implements Screen {
             sliderPositionY = 193;
         }
 
+        //change fire button if hovered
+        if (Gdx.input.getX() > 1090 && Gdx.input.getX() < 1090 + fire.getWidth() && Gdx.input.getY() > 1080 - 158 - fire.getHeight() && Gdx.input.getY() < 1080 - 158) {
+            stage.getBatch().draw(fireActive, 1090, 158);
+        }
 
         // USE THE BELOW LINE WHILE IMPLEMENTING
 //        stage.getBatch().draw(arrowDown, CURRENT_TANK_X, CURRENT_TANK_Y + 200);
