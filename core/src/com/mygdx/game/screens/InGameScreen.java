@@ -2,6 +2,7 @@ package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -35,6 +36,10 @@ public class InGameScreen implements Screen {
     private Texture fuelActive;
     private Texture smallBlazer;
     private Texture smallMark;
+    private Texture sliderBar;
+    private Texture sliderButton;
+    private Pixmap sliderPix;
+    private Pixmap sliderButtPix;
 
 
     private Stage stage;
@@ -58,6 +63,16 @@ public class InGameScreen implements Screen {
         smallBlazer = new Texture("blazerSmall.png");
         smallMark = new Texture("markSmall.png");
         this.game = game;
+        sliderBar = new Texture("sliderBar.png");
+        sliderButton = new Texture("sliderCircle.png");
+        sliderPix = new Pixmap(Gdx.files.internal("sliderBar.png"));
+        Pixmap scaledPixmap = new Pixmap((int)(sliderPix.getWidth()*0.8), (int)(sliderPix.getHeight()*0.8), sliderPix.getFormat());
+        scaledPixmap.drawPixmap(sliderPix, 0, 0, sliderPix.getWidth(), sliderPix.getHeight(), 0, 0, scaledPixmap.getWidth(), scaledPixmap.getHeight());
+        sliderBar = new Texture(scaledPixmap);
+        sliderButtPix = new Pixmap(Gdx.files.internal("sliderCircle.png"));
+        Pixmap scaledPixmap2 = new Pixmap((int)(sliderButtPix.getWidth()*0.8), (int)(sliderButtPix.getHeight()*0.8), sliderButtPix.getFormat());
+        scaledPixmap2.drawPixmap(sliderButtPix, 0, 0, sliderButtPix.getWidth(), sliderButtPix.getHeight(), 0, 0, scaledPixmap2.getWidth(), scaledPixmap2.getHeight());
+        sliderButton = new Texture(scaledPixmap2);
 //        groundHeight = new ArrayList<Float>();
 //        // initialise ground heights to hilly terrain.
 //        float initialHeight = 500;
@@ -105,6 +120,9 @@ public class InGameScreen implements Screen {
         // USE THE BELOW LINE WHILE IMPLEMENTING
 //        stage.getBatch().draw(arrowDown, CURRENT_TANK_X, CURRENT_TANK_Y + 200);
         stage.getBatch().draw(arrowDown, 1613, 649);
+        //scale Texture sliderBar to 0.8 size when drawing using Pixmap
+        stage.getBatch().draw(sliderBar, 261, 193);
+        stage.getBatch().draw(sliderButton, 341, 193);
         //draw ground here
 
         // if pause is clicked then go to PauseGameScreen
