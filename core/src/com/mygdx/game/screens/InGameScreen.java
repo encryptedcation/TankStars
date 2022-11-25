@@ -44,6 +44,9 @@ public class InGameScreen implements Screen {
     private boolean sliderControl;
     private int sliderPositionX;
     private int sliderPositionY;
+    private boolean aimControl;
+    private int aimPositionX;
+    private int aimPositionY;
 
     private float x  = 204;
     private float x2 = 1566;
@@ -81,6 +84,8 @@ public class InGameScreen implements Screen {
         sliderButton = new Texture(scaledPixmap2);
         sliderPositionX = 341;
         sliderPositionY = 193;
+        aimPositionX = 1500;
+        aimPositionY = 200;
 //        groundHeight = new ArrayList<Float>();
 //        // initialise ground heights to hilly terrain.
 //        float initialHeight = 500;
@@ -138,7 +143,7 @@ public class InGameScreen implements Screen {
         stage.getBatch().draw(power, 213, 540);
         stage.getBatch().draw(angle, 295, 540);
         stage.getBatch().draw(pause, 25, 980);
-        stage.getBatch().draw(aim, 1500, 200);
+        stage.getBatch().draw(aim, aimPositionX, aimPositionY);
         stage.getBatch().draw(smallBlazer, x2, 455);
         stage.getBatch().draw(smallMark, x, 450);
         stage.getBatch().draw(sliderBar, 261, 193);
@@ -168,6 +173,26 @@ public class InGameScreen implements Screen {
             sliderControl = false;
             sliderPositionX = 341;
             sliderPositionY = 193;
+        }
+
+        // allow user to move aim button in fixed radius
+        if (Gdx.input.justTouched() && Gdx.input.getX() > 1500 && Gdx.input.getX() < 1500 + aim.getWidth() && Gdx.input.getY() > 1080 - 200 - aim.getHeight() && Gdx.input.getY() < 1080 - 200) {
+            aimControl = true;
+        }
+        if (aimControl) {
+            //limiting radius is 100 px
+            if (Math.sqrt(Math.pow(Gdx.input.getX() - 1500 - aim.getWidth()/2, 2) + Math.pow(Gdx.input.getY() - 1080 + 200 + aim.getHeight()/2, 2)) < 100) {
+                aimPositionX = Gdx.input.getX() - aim.getWidth()/2;
+                aimPositionY = 1080 - Gdx.input.getY() - aim.getHeight()/2;
+            } else {
+                aimPositionX = (int)(1500 + 100 * Math.cos(Math.atan2(Gdx.input.getY() - 1080 + 200 + aim.getHeight()/2, Gdx.input.getX() - 1500 - aim.getWidth()/2)));
+                aimPositionY = (int)(200 - 100 * Math.sin(Math.atan2(Gdx.input.getY() - 1080 + 200 + aim.getHeight()/2, Gdx.input.getX() - 1500 - aim.getWidth()/2)));
+            }
+        }
+        if (aimControl && !Gdx.input.isTouched()) {
+            aimControl = false;
+            aimPositionX = 1500;
+            aimPositionY = 200;
         }
 
         //change fire button if hovered
