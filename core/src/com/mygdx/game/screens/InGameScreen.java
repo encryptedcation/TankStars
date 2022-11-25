@@ -33,12 +33,13 @@ public class InGameScreen implements Screen {
     private Texture aim;
     private Texture fireActive;
     private Texture fuelActive;
-
+    private Texture smallBlazer;
+    private Texture smallMark;
 
 
     private Stage stage;
     public InGameScreen(TankStars game) {
-        ground = new Texture("ground.jpeg");
+        ground = new Texture("ground - Copy.jpeg");
         stage = new Stage(new StretchViewport(1920, 1080));
         img = new Texture("nightBG.png");
         healthBarR = new Texture("helth.png");
@@ -54,22 +55,24 @@ public class InGameScreen implements Screen {
         arrowDown = new Texture("arrowDown.png");
         pauseSel = new Texture("pauseSel.png");
         aim = new Texture("aim.png");
+        smallBlazer = new Texture("blazerSmall.png");
+        smallMark = new Texture("markSmall.png");
         this.game = game;
-        groundHeight = new ArrayList<Float>();
-        // initialise ground heights to hilly terrain.
-        float initialHeight = 500;
-        int flagIncreasing = 0;
-        for (int i = 0; i < 384; i++) {
-            groundHeight.add(initialHeight);
-            if (i%20 == 0 || i%47==0 || i%56==0) {
-                flagIncreasing = 1- flagIncreasing;
-            }
-            if (flagIncreasing == 1) {
-                initialHeight += Math.random()*2;
-            } else {
-                initialHeight -= Math.random();
-            }
-        }
+//        groundHeight = new ArrayList<Float>();
+//        // initialise ground heights to hilly terrain.
+//        float initialHeight = 500;
+//        int flagIncreasing = 0;
+//        for (int i = 0; i < 384; i++) {
+//            groundHeight.add(initialHeight);
+//            if (i%20 == 0 || i%47==0 || i%56==0) {
+//                flagIncreasing = 1- flagIncreasing;
+//            }
+//            if (flagIncreasing == 1) {
+//                initialHeight += Math.random()*2;
+//            } else {
+//                initialHeight -= Math.random();
+//            }
+//        }
     }
 
     @Override
@@ -84,9 +87,10 @@ public class InGameScreen implements Screen {
         ScreenUtils.clear(0,0,0,1);
         stage.getBatch().begin();
         stage.getBatch().draw(img, 0, 0);
-        for (int i = 0; i < 384; i++) {
-            stage.getBatch().draw(ground, i * 5, 0, 5, groundHeight.get(i));
-        }
+//        for (int i = 0; i < 384; i++) {
+//            stage.getBatch().draw(ground, i * 5, 0, 5, groundHeight.get(i));
+//        }
+        stage.getBatch().draw(ground,0,0);
         stage.getBatch().draw(healthBarL, 338, 909);
         stage.getBatch().draw(healthBarR, 1011, 909);
         stage.getBatch().draw(vs, 930, 920);
@@ -96,6 +100,8 @@ public class InGameScreen implements Screen {
         stage.getBatch().draw(angle, 295, 540);
         stage.getBatch().draw(pause, 25, 980);
         stage.getBatch().draw(aim, 1500, 200);
+        stage.getBatch().draw(smallBlazer, 1566, 455);
+        stage.getBatch().draw(smallMark, 204, 450);
         // USE THE BELOW LINE WHILE IMPLEMENTING
 //        stage.getBatch().draw(arrowDown, CURRENT_TANK_X, CURRENT_TANK_Y + 200);
         stage.getBatch().draw(arrowDown, 1613, 649);
