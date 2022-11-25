@@ -41,6 +41,9 @@ public class InGameScreen implements Screen {
     private Texture sliderButton;
     private Pixmap sliderPix;
     private Pixmap sliderButtPix;
+    private boolean sliderControl;
+    private int sliderPositionX;
+    private int sliderPositionY;
 
     private float x  = 204;
     private float x2 = 1566;
@@ -76,6 +79,8 @@ public class InGameScreen implements Screen {
         Pixmap scaledPixmap2 = new Pixmap((int)(sliderButtPix.getWidth()*0.8), (int)(sliderButtPix.getHeight()*0.8), sliderButtPix.getFormat());
         scaledPixmap2.drawPixmap(sliderButtPix, 0, 0, sliderButtPix.getWidth(), sliderButtPix.getHeight(), 0, 0, scaledPixmap2.getWidth(), scaledPixmap2.getHeight());
         sliderButton = new Texture(scaledPixmap2);
+        sliderPositionX = 341;
+        sliderPositionY = 193;
 //        groundHeight = new ArrayList<Float>();
 //        // initialise ground heights to hilly terrain.
 //        float initialHeight = 500;
@@ -137,7 +142,33 @@ public class InGameScreen implements Screen {
         stage.getBatch().draw(smallBlazer, x2, 455);
         stage.getBatch().draw(smallMark, x, 450);
         stage.getBatch().draw(sliderBar, 261, 193);
-        stage.getBatch().draw(sliderButton, 341, 193);
+        stage.getBatch().draw(sliderButton, sliderPositionX, sliderPositionY);
+        // move slider Button
+        if(Gdx.input.justTouched() && Gdx.input.getX() > 261 && Gdx.input.getX() < 261 + sliderBar.getWidth() && Gdx.input.getY() > 1080 - 193 - sliderBar.getHeight() && Gdx.input.getY() < 1080 - 193) {
+            sliderControl = true;
+        }
+
+        if (sliderControl) {
+            sliderPositionX = Gdx.input.getX() - sliderButton.getWidth()/2;
+            if (sliderPositionX < 261) {
+                sliderPositionX = 261;
+            }
+            if (sliderPositionX > 261 + sliderBar.getWidth() - sliderButton.getWidth()) {
+                sliderPositionX = 261 + sliderBar.getWidth() - sliderButton.getWidth();
+            }
+            //move tank with speed proportional to slider position, reverse if slider is pulled behind
+            if (sliderPositionX > 261 + sliderBar.getWidth()/2) {
+                x = x + (sliderPositionX - 261 - sliderBar.getWidth()/2)/10;
+            } else {
+                x = x - (261 + sliderBar.getWidth()/2 - sliderPositionX)/10;
+            }
+        }
+
+        if (sliderControl && !Gdx.input.isTouched()) {
+            sliderControl = false;
+            sliderPositionX = 341;
+            sliderPositionY = 193;
+        }
 
 
         // USE THE BELOW LINE WHILE IMPLEMENTING
