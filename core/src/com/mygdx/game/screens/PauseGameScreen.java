@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.TankStars;
 
-public class PauseGameScreen implements Screen {
+public class PauseGameScreen extends SelectTankScreen implements Screen {
     TankStars game;
     private Stage stage;
     private Texture bg;
@@ -25,6 +25,7 @@ public class PauseGameScreen implements Screen {
 
 
     public PauseGameScreen(TankStars game) {
+        super(game);
         this.game = game;
         stage = new Stage(new StretchViewport(1920, 1080));
         bg = new Texture("BG.png");
