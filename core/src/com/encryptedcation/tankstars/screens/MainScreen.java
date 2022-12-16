@@ -1,14 +1,12 @@
-package com.mygdx.game.screens;
+package com.encryptedcation.tankstars.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.mygdx.game.TankStars;
-import jdk.jfr.internal.tool.Main;
+import com.encryptedcation.tankstars.TankStars;
 
 public class MainScreen implements Screen {
     private Texture img;

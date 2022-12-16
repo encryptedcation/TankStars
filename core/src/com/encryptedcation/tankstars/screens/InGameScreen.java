@@ -1,4 +1,4 @@
-package com.mygdx.game.screens;
+package com.encryptedcation.tankstars.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.mygdx.game.TankStars;
+import com.encryptedcation.tankstars.TankStars;
 
 import java.util.ArrayList;
 

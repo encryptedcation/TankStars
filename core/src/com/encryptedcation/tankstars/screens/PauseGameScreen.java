@@ -1,11 +1,11 @@
-package com.mygdx.game.screens;
+package com.encryptedcation.tankstars.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.mygdx.game.TankStars;
+import com.encryptedcation.tankstars.TankStars;
 
 public class PauseGameScreen extends SelectTankScreen implements Screen {
     TankStars game;
