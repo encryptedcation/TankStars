@@ -10,9 +10,10 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.encryptedcation.tankstars.TankStars;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class InGameScreen implements Screen {
+public class InGameScreen implements Screen, Serializable {
     TankStars game;
     private Texture img;
     private Texture healthBarR;
