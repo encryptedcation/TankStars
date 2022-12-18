@@ -38,6 +38,7 @@ public class InGameScreen implements Screen {
     private Texture smallBlazer;
     private Texture smallMark;
     private Texture sliderBar;
+    private Texture blank;
     private Texture sliderButton;
     private Pixmap sliderPix;
     private Pixmap sliderButtPix;
@@ -53,10 +54,12 @@ public class InGameScreen implements Screen {
 
     private Stage stage;
     public InGameScreen(TankStars game) {
+        blank = new Texture("blank.png");
         ground = new Texture("ground - Copy.jpeg");
         stage = new Stage(new StretchViewport(1920, 1080));
         img = new Texture("nightBG.png");
         healthBarR = new Texture("helth.png");
+//        healthBarR = new Texture("testHealthBar.png");
         healthBarL = new Texture("helthR.png");
         vs = new Texture("vs.png");
         fire = new Texture("FIRE.png");
@@ -148,7 +151,15 @@ public class InGameScreen implements Screen {
         stage.getBatch().draw(sliderBar, 261, 193);
         stage.getBatch().draw(sliderButton, sliderPositionX, sliderPositionY);
         stage.getBatch().draw(aim, aimPositionX, aimPositionY);
-        // move slider Button
+
+        // if player 1 attacks and it hits player 2 then player 2 loses health
+//            stage.getBatch().draw(blank, Gdx.graphics.getWidth()*p1.getHealth(), 909);
+//        stage.getBatch().draw(blank, Gdx.graphics.getWidth()*10, 909); // player 1 health bar
+//        stage.getBatch().draw(blank, 1011, 909, Gdx.graphics.getWidth(), 909); // player 2 health bar
+
+//        }
+
+
         if(Gdx.input.justTouched() && Gdx.input.getX() > 261 && Gdx.input.getX() < 261 + sliderBar.getWidth() && Gdx.input.getY() > 1080 - 193 - sliderBar.getHeight() && Gdx.input.getY() < 1080 - 193) {
             sliderControl = true;
         }
@@ -218,6 +229,9 @@ public class InGameScreen implements Screen {
         else{
             stage.getBatch().draw(pause, 25, 980);
         }
+
+
+
         stage.getBatch().end();
     }
 
