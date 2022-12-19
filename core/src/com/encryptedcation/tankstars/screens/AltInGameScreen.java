@@ -1,24 +1,22 @@
 package com.encryptedcation.tankstars.screens;
 
-//note to ananya: making new screen for experimentation so that we don't mess up the original code
-
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.encryptedcation.tankstars.TankStars;
 
-//add box2d
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.World;
-
 public class AltInGameScreen implements Screen {
-    World world;
-    Box2DDebugRenderer b2dr;
+    private final TankStars game;
+    private final OrthographicCamera tankCam;
+    private final Viewport tankPort;
+
+    public AltInGameScreen(TankStars game) {
+        this.game = game;
+        tankCam = new OrthographicCamera();
+        tankPort = new FitViewport(TankStars.WIDTH, TankStars.HEIGHT, tankCam);
+    }
 
     @Override
     public void show() {
@@ -27,12 +25,12 @@ public class AltInGameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-
+        game.batch.setProjectionMatrix(tankCam.combined);
     }
 
     @Override
     public void resize(int width, int height) {
-
+        tankPort.update(width,height);
     }
 
     @Override

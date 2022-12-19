@@ -1,6 +1,8 @@
 package com.encryptedcation.tankstars;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.encryptedcation.tankstars.screens.MainScreen;
 
@@ -12,7 +14,7 @@ public class TankStars extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		this.setScreen(new MainScreen(this));
+		setScreen(new MainScreen(this));
 	}
 
 	@Override
