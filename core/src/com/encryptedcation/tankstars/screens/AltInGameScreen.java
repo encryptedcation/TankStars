@@ -25,9 +25,9 @@ public class AltInGameScreen implements Screen {
         tankCam = new OrthographicCamera();
         tankPort = new FitViewport(TankStars.WIDTH, TankStars.HEIGHT, tankCam);
         mapLoader = new TmxMapLoader();
-        map = mapLoader.load("map.tmx");
+        map = mapLoader.load("mapreal.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
-        tankCam.position.set(tankPort.getWorldWidth(), tankPort.getWorldHeight(), 0);
+        tankCam.position.set(tankPort.getWorldWidth()/2, tankPort.getWorldHeight()/2, 0);
         hud = new gameHUD(game.batch);
     }
 
@@ -38,6 +38,8 @@ public class AltInGameScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        tankCam.update();
+        renderer.setView(tankCam);
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(Gdx.gl.GL_COLOR_BUFFER_BIT);
         renderer.render();
