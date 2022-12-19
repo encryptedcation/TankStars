@@ -8,12 +8,18 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.encryptedcation.tankstars.Player;
+import com.encryptedcation.tankstars.Tank;
 import com.encryptedcation.tankstars.TankStars;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class InGameScreen implements Screen, Serializable {
+    private static Tank tank1;
+    private static Tank tank2;
+    private static Player player1 = new Player(1, tank1, 100, 0,0);
+    private static Player player2 = new Player(2, tank2, 100, 0,0);
     TankStars game;
     private Texture img;
     private Texture healthBarR;
@@ -105,6 +111,14 @@ public class InGameScreen implements Screen, Serializable {
 //                initialHeight -= Math.random();
 //            }
 //        }
+    }
+
+    public static Player getPlayer1() {
+        return player1;
+    }
+
+    public static Player getPlayer2() {
+        return player2;
     }
 
     @Override

@@ -12,12 +12,13 @@ public class Tank {
     public int positionY;
     public int direction;
     ArrayList<Attack> attacks = new ArrayList<Attack>();
-    public Tank(String name, int positionX, int positionY, int direction, int fuel) {
+    public Tank(String name, int positionX, int positionY, int direction, int fuel, Attack defaultAttack) {
         this.name = name;
         this.positionX = positionX;
         this.positionY = positionY;
         this.direction = direction;
         this.fuel = fuel;
+        attacks.add(defaultAttack);
     }
 
     public void move(int distance) throws OutOfFuelException {
@@ -89,6 +90,18 @@ public class Tank {
     // set name
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void addAttack(Attack attack) {
+        attacks.add(attack);
+    }
+
+    public void removeAttack(Attack attack) {
+        attacks.remove(attack);
+    }
+
+    public ArrayList<Attack> getAttacks() {
+        return attacks;
     }
 
     // get default attack

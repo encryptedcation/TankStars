@@ -70,8 +70,6 @@ public class LoadGameScreen implements Screen {
         int p = TankStars.WIDTH / 2 - GAME_BUTTON_WIDTH / 2;
         if (Gdx.input.getX() < 489 && Gdx.input.getX() > 154 && Gdx.input.getY() < 281 && Gdx.input.getY() > 150){
             stage.getBatch().draw(gameButton1Sel, 154, 746, GAME_BUTTON_WIDTH, GAME_BUTTON_HEIGHT);
-//            if (Gdx.input.justTouched()) {
-//            }
         }
         else{
             stage.getBatch().draw(gameButton1, 154, GAME_BUTTON_Y, GAME_BUTTON_WIDTH, GAME_BUTTON_HEIGHT);

@@ -8,6 +8,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.encryptedcation.tankstars.Player;
 import com.encryptedcation.tankstars.TankStars;
 import com.encryptedcation.tankstars.scenes.gameHUD;
 
