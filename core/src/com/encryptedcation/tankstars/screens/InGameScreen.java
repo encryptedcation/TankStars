@@ -123,6 +123,7 @@ public class InGameScreen implements Screen, Serializable {
         player2.setAngleOfShooting(0);
         player1.setPowerOfShooting(0);
         player2.setPowerOfShooting(0);
+        turn = 1;
 //        groundHeight = new ArrayList<Float>();
 //        // initialise ground heights to hilly terrain.
 //        float initialHeight = 500;
@@ -175,26 +176,30 @@ public class InGameScreen implements Screen, Serializable {
         stage.act();
         stage.draw();
         ScreenUtils.clear(0,0,0,1);
-        if (player1.getFuel()>0) {
-            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-                x = x + 3;
-                player1.setFuel(player1.getFuel() - 1);
-            }
+        if (turn == 1) {
+            if (player1.getFuel() > 0) {
+                if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+                    x = x + 3;
+                    player1.setFuel(player1.getFuel() - 1);
+                }
 
-            if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-                x = x - 3;
-                player1.setFuel(player1.getFuel() - 1);
+                if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+                    x = x - 3;
+                    player1.setFuel(player1.getFuel() - 1);
+                }
             }
         }
-        if (player2.getFuel()>0) {
-            if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-                x2 = x2 + 2;
-                player2.setFuel(player2.getFuel() - 2);
-            }
+        else {
+            if (player2.getFuel() > 0) {
+                if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+                    x2 = x2 + 3;
+                    player2.setFuel(player2.getFuel() - 1);
+                }
 
-            if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-                x2 = x2 - 2;
-                player2.setFuel(player2.getFuel() - 2);
+                if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+                    x2 = x2 - 3;
+                    player2.setFuel(player2.getFuel() - 1);
+                }
             }
         }
 
@@ -234,17 +239,29 @@ public class InGameScreen implements Screen, Serializable {
         stage.getBatch().draw(p1, 320, 950);
         stage.getBatch().draw(p2, 1500, 950);
         stage.getBatch().draw(fire, 1090, 158);
-        if (player1.getFuel() == 100) {
+        int currPlayerFuel = 0;
+        if (turn == 1) {
+            currPlayerFuel = player1.getFuel();
+        } else {
+            currPlayerFuel = player2.getFuel();
+        }
+        if (currPlayerFuel == 100) {
             stage.getBatch().draw(fuelBar, 263, 293, fuel.getWidth()-4, fuel.getHeight());
         }
         else {
-            stage.getBatch().draw(fuelBar, 263, 293, (int) (player1.getFuel() * (fuel.getWidth()-4) /100), fuel.getHeight());
+            stage.getBatch().draw(fuelBar, 263, 293, (int) (currPlayerFuel * (fuel.getWidth()-4) /100), fuel.getHeight());
         }
         stage.getBatch().draw(fuel, 261, 293);
         stage.getBatch().draw(power, 213, 540);
         stage.getBatch().draw(angle, 295, 540);
-        powerLabel.setText(Integer.toString((int)player1.getPowerOfShooting()));
-        angleLabel.setText(Integer.toString((int)player1.getAngleOfShooting()));
+        if (turn == 1) {
+            powerLabel.setText(Integer.toString((int) player1.getPowerOfShooting()));
+            angleLabel.setText(Integer.toString((int) player1.getAngleOfShooting()));
+        }
+        else {
+            powerLabel.setText(Integer.toString((int) player2.getPowerOfShooting()));
+            angleLabel.setText(Integer.toString((int) player2.getAngleOfShooting()));
+        }
         powerLabel.setPosition(223, 560);
         angleLabel.setPosition(305, 560);
         powerLabel.draw(stage.getBatch(), 1);
@@ -311,8 +328,14 @@ public class InGameScreen implements Screen, Serializable {
             // power is proportional to radius, angle is proportional to angle
             // forward x axis is at 0 degrees, positive Y at 90 degrees
             // max power = 100
-            player1.setPowerOfShooting((int)(Math.sqrt(Math.pow(aimPositionX - 1500, 2) + Math.pow(aimPositionY - 200, 2)) * 100 / 80));
-player1.setAngleOfShooting((int)(Math.atan2(aimPositionY - 200, aimPositionX - 1500) * 180 / Math.PI));
+            if (turn == 1) {
+                player1.setPowerOfShooting((int) (Math.sqrt(Math.pow(aimPositionX - 1500, 2) + Math.pow(aimPositionY - 200, 2)) * 100 / 80));
+                player1.setAngleOfShooting((int) (Math.atan2(aimPositionY - 200, aimPositionX - 1500) * 180 / Math.PI));
+            }
+            else {
+                player2.setPowerOfShooting((int) (Math.sqrt(Math.pow(aimPositionX - 1500, 2) + Math.pow(aimPositionY - 200, 2)) * 100 / 80));
+                player2.setAngleOfShooting((int) (Math.atan2(aimPositionY - 200, aimPositionX - 1500) * 180 / Math.PI));
+            }
         }
         if (aimControl && !Gdx.input.isTouched()) {
             aimControl = false;
@@ -323,6 +346,15 @@ player1.setAngleOfShooting((int)(Math.atan2(aimPositionY - 200, aimPositionX - 1
         //change fire button if hovered
         if (Gdx.input.getX() > 1090 && Gdx.input.getX() < 1090 + fire.getWidth() && Gdx.input.getY() > 1080 - 158 - fire.getHeight() && Gdx.input.getY() < 1080 - 158) {
             stage.getBatch().draw(fireActive, 1090, 158);
+            if (Gdx.input.justTouched()) {
+                turn = turn == 1 ? 2 : 1;
+                player1.setPowerOfShooting(0);
+                player1.setAngleOfShooting(0);
+                player1.setFuel(100);
+                player2.setAngleOfShooting(0);
+                player2.setPowerOfShooting(0);
+                player2.setFuel(100);
+            }
         }
 
         // USE THE BELOW LINE WHILE IMPLEMENTING
