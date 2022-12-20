@@ -27,6 +27,14 @@ public class Player {
         return tank;
     }
 
+    public void increasePlayerHealth(int health) {
+        this.health += health;
+    }
+
+    public void decreasePlayerHealth(int health) {
+        this.health -= health;
+    }
+
     public void setTank(Tank tank) {
         this.tank = tank;
     }

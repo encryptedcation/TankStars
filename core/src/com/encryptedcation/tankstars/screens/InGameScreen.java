@@ -18,6 +18,8 @@ import java.util.ArrayList;
 public class InGameScreen implements Screen, Serializable {
     private static Tank tank1;
     private static Tank tank2;
+    private Texture p1;
+    private Texture p2;
     private static Player player1 = new Player(1, tank1, 100, 0,0);
     private static Player player2 = new Player(2, tank2, 100, 0,0);
     TankStars game;
@@ -39,6 +41,7 @@ public class InGameScreen implements Screen, Serializable {
     private Texture pauseSel;
     private ArrayList<Float> groundHeight; // used to implement destructible terrain.
     private Texture ground;
+    private Texture healthBarLine;
     private Texture aim;
     private Texture fireActive;
     private Texture fuelActive;
@@ -65,9 +68,12 @@ public class InGameScreen implements Screen, Serializable {
         ground = new Texture("ground - Copy.jpeg");
         stage = new Stage(new StretchViewport(1920, 1080));
         img = new Texture("nightBG.png");
-        healthBarR = new Texture("helth.png");
+        healthBarR = new Texture("p2Health.png");
 //        healthBarR = new Texture("testHealthBar.png");
-        healthBarL = new Texture("helthR.png");
+        p1 = new Texture("PLAYER 1.png");
+        p2 = new Texture("PLAYER 2.png");
+        healthBarL = new Texture("p1Health.png");
+        healthBarLine = new Texture("healthBarLine.png");
         vs = new Texture("vs.png");
         fire = new Texture("FIRE.png");
         fireActive = new Texture("FIREACTIV.png");
@@ -153,9 +159,35 @@ public class InGameScreen implements Screen, Serializable {
 //            stage.getBatch().draw(ground, i * 5, 0, 5, groundHeight.get(i));
 //        }
         stage.getBatch().draw(ground,0,0);
-        stage.getBatch().draw(healthBarL, 338, 909);
+        stage.getBatch().draw(healthBarL, 270, 909);
+
+        int xHealthLineStart = 795;
+        int width = 27;
+        // full bar
+        if (player1.getHealth() == 100) {
+            stage.getBatch().draw(healthBarLine, 280, 925, width * 20, 68);
+        }
+        else {
+            // partial bar
+            stage.getBatch().draw(healthBarLine, 280, 925, width * (int) (player1.getHealth() / 5), 68);
+        }
+
         stage.getBatch().draw(healthBarR, 1011, 909);
+
+        if (player2.getHealth() == 100) {
+            stage.getBatch().draw(healthBarLine, 1124, 925, width * 20, 68);
+        }
+        else {
+            // partial bar
+            stage.getBatch().draw(healthBarLine, 1124, 925, width * (int) (player2.getHealth() / 5), 68);
+        }
+//        }
+//
+
+//        stage.getBatch().draw(healthBarR, 1011, 909);
         stage.getBatch().draw(vs, 930, 920);
+        stage.getBatch().draw(p1, 320, 950);
+        stage.getBatch().draw(p2, 1500, 950);
         stage.getBatch().draw(fire, 1090, 158);
         stage.getBatch().draw(fuel, 261, 293);
         stage.getBatch().draw(power, 213, 540);
@@ -166,6 +198,7 @@ public class InGameScreen implements Screen, Serializable {
         stage.getBatch().draw(sliderBar, 261, 193);
         stage.getBatch().draw(sliderButton, sliderPositionX, sliderPositionY);
         stage.getBatch().draw(aim, aimPositionX, aimPositionY);
+
 
         // if player 1 attacks and it hits player 2 then player 2 loses health
 //            stage.getBatch().draw(blank, Gdx.graphics.getWidth()*p1.getHealth(), 909);
