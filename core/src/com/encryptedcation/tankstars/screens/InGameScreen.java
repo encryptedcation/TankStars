@@ -3,9 +3,13 @@ package com.encryptedcation.tankstars.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.encryptedcation.tankstars.Player;
@@ -58,6 +62,8 @@ public class InGameScreen implements Screen, Serializable {
     private boolean aimControl;
     private int aimPositionX;
     private int aimPositionY;
+    private Label powerLabel;
+    private Label angleLabel;
 
     private float x  = 204;
     private float x2 = 1566;
@@ -65,6 +71,7 @@ public class InGameScreen implements Screen, Serializable {
 
     private Stage stage;
     private Texture fuelBar;
+    private Skin skin;
 
     public InGameScreen(TankStars game) {
         blank = new Texture("blank.png");
@@ -107,6 +114,15 @@ public class InGameScreen implements Screen, Serializable {
         fuelBar = new Texture("fuelBar.png");
         player1.setFuel(100);
         player2.setFuel(100);
+        BitmapFont font = new BitmapFont();
+        // increase font size
+        font.getData().setScale(1.5F);
+        powerLabel = new Label("100", new Label.LabelStyle(font, Color.WHITE));
+        angleLabel = new Label("45", new Label.LabelStyle(font, Color.WHITE));
+        player1.setAngleOfShooting(0);
+        player2.setAngleOfShooting(0);
+        player1.setPowerOfShooting(0);
+        player2.setPowerOfShooting(0);
 //        groundHeight = new ArrayList<Float>();
 //        // initialise ground heights to hilly terrain.
 //        float initialHeight = 500;
@@ -227,6 +243,12 @@ public class InGameScreen implements Screen, Serializable {
         stage.getBatch().draw(fuel, 261, 293);
         stage.getBatch().draw(power, 213, 540);
         stage.getBatch().draw(angle, 295, 540);
+        powerLabel.setText(Integer.toString((int)player1.getPowerOfShooting()));
+        angleLabel.setText(Integer.toString((int)player1.getAngleOfShooting()));
+        powerLabel.setPosition(223, 560);
+        angleLabel.setPosition(305, 560);
+        powerLabel.draw(stage.getBatch(), 1);
+        angleLabel.draw(stage.getBatch(), 1);
         stage.getBatch().draw(pause, 25, 980);
         stage.getBatch().draw(smallBlazer, x2, 455);
         stage.getBatch().draw(smallMark, x, 450);
@@ -276,13 +298,21 @@ public class InGameScreen implements Screen, Serializable {
         }
         if (aimControl) {
             //limiting radius is 80 px
-            if (Math.sqrt(Math.pow(Gdx.input.getX() - 1500 - aim.getWidth()/2, 2) + Math.pow(Gdx.input.getY() - 1080 + 200 + aim.getHeight()/2, 2)) < 80) {
-                aimPositionX = Gdx.input.getX() - aim.getWidth()/2;
-                aimPositionY = 1080 - Gdx.input.getY() - aim.getHeight()/2;
+            //restrict movement in first and second quadrant
+            if (Gdx.input.getX() > 1500 + aim.getWidth()/2 && Gdx.input.getY() < 1080 - 200 - aim.getHeight()/2) {
+                if (Math.sqrt(Math.pow(Gdx.input.getX() - 1500 - aim.getWidth()/2, 2) + Math.pow(1080 - 200 - aim.getHeight()/2 - Gdx.input.getY(), 2)) < 80) {
+                    aimPositionX = Gdx.input.getX() - aim.getWidth()/2;
+                    aimPositionY = 1080 - Gdx.input.getY() - aim.getHeight()/2;
+                }
             } else {
                 aimPositionX = (int)(1500 + 80 * Math.cos(Math.atan2(Gdx.input.getY() - 1080 + 200 + aim.getHeight()/2, Gdx.input.getX() - 1500 - aim.getWidth()/2)));
                 aimPositionY = (int)(200 - 80 * Math.sin(Math.atan2(Gdx.input.getY() - 1080 + 200 + aim.getHeight()/2, Gdx.input.getX() - 1500 - aim.getWidth()/2)));
             }
+            // power is proportional to radius, angle is proportional to angle
+            // forward x axis is at 0 degrees, positive Y at 90 degrees
+            // max power = 100
+            player1.setPowerOfShooting((int)(Math.sqrt(Math.pow(aimPositionX - 1500, 2) + Math.pow(aimPositionY - 200, 2)) * 100 / 80));
+player1.setAngleOfShooting((int)(Math.atan2(aimPositionY - 200, aimPositionX - 1500) * 180 / Math.PI));
         }
         if (aimControl && !Gdx.input.isTouched()) {
             aimControl = false;

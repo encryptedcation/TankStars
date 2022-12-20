@@ -53,7 +53,7 @@ public class Player implements java.io.Serializable {
         return angleOfShooting;
     }
 
-    private void setAngleOfShooting(int angleOfShooting) {
+    public void setAngleOfShooting(int angleOfShooting) {
         this.angleOfShooting = angleOfShooting;
     }
 
@@ -61,7 +61,7 @@ public class Player implements java.io.Serializable {
         return powerOfShooting;
     }
 
-    private void setPowerOfShooting(int powerOfShooting) {
+    public void setPowerOfShooting(int powerOfShooting) {
         this.powerOfShooting = powerOfShooting;
     }
 
