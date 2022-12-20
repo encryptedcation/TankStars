@@ -173,6 +173,7 @@ public class InGameScreen implements Screen, Serializable {
 //        stage.getBatch().draw(blank, 1011, 909, Gdx.graphics.getWidth(), 909); // player 2 health bar
 
 //        }
+        //
 
 
         if(Gdx.input.justTouched() && Gdx.input.getX() > 261 && Gdx.input.getX() < 261 + sliderBar.getWidth() && Gdx.input.getY() > 1080 - 193 - sliderBar.getHeight() && Gdx.input.getY() < 1080 - 193) {
