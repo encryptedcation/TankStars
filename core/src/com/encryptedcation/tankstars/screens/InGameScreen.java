@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.encryptedcation.tankstars.Player;
+import com.encryptedcation.tankstars.SavedGame;
 import com.encryptedcation.tankstars.Tank;
 import com.encryptedcation.tankstars.TankStars;
 
@@ -61,6 +62,7 @@ public class InGameScreen implements Screen, Serializable {
 
     private float x  = 204;
     private float x2 = 1566;
+    private int turn; // 1 = player 1, 2 = player 2
 
     private Stage stage;
     public InGameScreen(TankStars game) {
@@ -272,7 +274,9 @@ public class InGameScreen implements Screen, Serializable {
             stage.getBatch().draw(pauseSel, 25, 980);
             if (Gdx.input.isTouched()) {
                 this.dispose();
-                game.setScreen(new PauseGameScreen(game));
+                // make a SavedGame class object and pass it to PauseGameScreen
+                SavedGame savedGame = new SavedGame(player1, player2, turn);
+                game.setScreen(new PauseGameScreen(game, savedGame));
             }
         }
         else{

@@ -9,17 +9,11 @@ public class SavedGame implements Serializable {
     private Player player1;
     private Player player2;
     private int turn;
-    private int mapWidth;
-    private int mapHeight;
-    private int[][] map;
 
-    public SavedGame(Player player1, Player player2, int turn, int mapWidth, int mapHeight, int[][] map) {
+    public SavedGame(Player player1, Player player2, int turn) {
         this.player1 = player1;
         this.player2 = player2;
         this.turn = turn;
-        this.mapWidth = mapWidth;
-        this.mapHeight = mapHeight;
-        this.map = map;
     }
 
     public Player getPlayer1() {
@@ -38,8 +32,12 @@ public class SavedGame implements Serializable {
         this.player2 = player2;
     }
 
+    public int getTurn(){
+        return this.turn;
+    }
 
-
-
+    public void setTurn(int turn){
+        this.turn = turn;
+    }
 
 }

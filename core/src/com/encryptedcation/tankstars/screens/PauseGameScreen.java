@@ -5,7 +5,13 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.encryptedcation.tankstars.SavedGame;
 import com.encryptedcation.tankstars.TankStars;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 public class PauseGameScreen extends SelectTankScreen implements Screen {
     TankStars game;
@@ -21,10 +27,11 @@ public class PauseGameScreen extends SelectTankScreen implements Screen {
     private Texture restartSel;
     private final int WIDTH = 345;
     private final int HEIGHT = 150;
+    private SavedGame savedGame;
 
 
 
-    public PauseGameScreen(TankStars game) {
+    public PauseGameScreen(TankStars game, SavedGame savedGame) {
         super(game);
         this.game = game;
         stage = new Stage(new StretchViewport(1920, 1080));
@@ -37,6 +44,7 @@ public class PauseGameScreen extends SelectTankScreen implements Screen {
         saveGameSel = new Texture("SAVEGAMEACTIVE.png");
         restart = new Texture("RESTART.png");
         restartSel = new Texture("RESTARTACTIVE.png");
+        this.savedGame = savedGame;
     }
 
     @Override
@@ -79,7 +87,16 @@ public class PauseGameScreen extends SelectTankScreen implements Screen {
             stage.getBatch().draw(saveGameSel, 793, 403, WIDTH, HEIGHT);
             if (Gdx.input.justTouched()) {
                 this.dispose();
-                game.setScreen(new SaveGameScreen(game));
+                try{
+                    FileOutputStream fileOut = new FileOutputStream("savedGame.ser");
+                    ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                    out.writeObject(this.savedGame);
+                    out.close();
+                    fileOut.close();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                game.setScreen(new SaveGameScreen(game, savedGame));
             }
         }
 

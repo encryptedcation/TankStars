@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.encryptedcation.tankstars.SavedGame;
 import com.encryptedcation.tankstars.TankStars;
 
 public class SaveGameScreen implements Screen {
@@ -16,13 +17,16 @@ public class SaveGameScreen implements Screen {
     private final int BACK_BUTTON_WIDTH = 228;
     private final int BACK_BUTTON_HEIGHT = 66;
     private final int BACK_BUTTON_Y = 448;
+    private SavedGame savedGame;
 
-    public SaveGameScreen(TankStars game) {
+    public SaveGameScreen(TankStars game, SavedGame savedGame) {
         this.game = game;
         stage = new Stage(new StretchViewport(1920, 1080));
         bg = new Texture("SavedGamePage.png");
         backButton = new Texture("back.png");
         backButtonSel = new Texture("backActive.png");
+        this.savedGame = savedGame;
+
     }
 
     @Override
@@ -42,7 +46,7 @@ public class SaveGameScreen implements Screen {
             stage.getBatch().draw(backButtonSel, 846, 448, BACK_BUTTON_WIDTH, BACK_BUTTON_HEIGHT);
             if (Gdx.input.justTouched()) {
                 this.dispose();
-                game.setScreen(new PauseGameScreen(game));
+                game.setScreen(new PauseGameScreen(game, savedGame));
             }
         }
         else{

@@ -4,7 +4,7 @@ import com.encryptedcation.tankstars.exceptions.OutOfFuelException;
 
 import java.util.ArrayList;
 
-public class Tank {
+public class Tank implements java.io.Serializable {
     // default tank is Mark 1
     private int fuel;
     public String name;

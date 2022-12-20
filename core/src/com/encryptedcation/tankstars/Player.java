@@ -1,6 +1,6 @@
 package com.encryptedcation.tankstars;
 
-public class Player {
+public class Player implements java.io.Serializable {
     private int id;
     private Tank tank;
     private int health;
