@@ -21,7 +21,7 @@ public class InGameScreen implements Screen, Serializable {
     private static Tank tank2;
     private Texture p1;
     private Texture p2;
-    private static Player player1 = new Player(1, tank1, 100, 0,0);
+    private static Player player1 = new Player(1, tank1, 60, 0,0);
     private static Player player2 = new Player(2, tank2, 100, 0,0);
     TankStars game;
     private Texture img;
@@ -119,6 +119,16 @@ public class InGameScreen implements Screen, Serializable {
 //                initialHeight -= Math.random();
 //            }
 //        }
+    }
+
+    public static int getWinner() {
+        if (player1.getHealth() <= 0) {
+            return 2;
+        } else if (player2.getHealth() <= 0) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
     public static Player getPlayer1() {
@@ -281,6 +291,16 @@ public class InGameScreen implements Screen, Serializable {
         }
         else{
             stage.getBatch().draw(pause, 25, 980);
+        }
+
+        // if health of any player is 0 then go to VictoryScreen
+        if (player1.getHealth() <= 0) {
+            this.dispose();
+            game.setScreen(new VictoryPage(game));
+        }
+        if (player2.getHealth() <= 0) {
+            this.dispose();
+            game.setScreen(new VictoryPage(game));
         }
 
 
