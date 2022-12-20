@@ -5,7 +5,6 @@
     },
     "activeFile": "mapreal.tmx",
     "expandedProjectPaths": [
-        "."
     ],
     "fileStates": {
         "full.tsx": {
@@ -25,11 +24,11 @@
             "scaleInEditor": 1
         },
         "mapreal.tmx": {
-            "scale": 0.75,
+            "scale": 0.25,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 655.3333333333334,
-                "y": 787.3333333333334
+                "x": -42,
+                "y": -84
             }
         }
     },
