@@ -21,8 +21,8 @@ public class InGameScreen implements Screen, Serializable {
     private static Tank tank2;
     private Texture p1;
     private Texture p2;
-    private static Player player1 = new Player(1, tank1, 60, 0,0);
-    private static Player player2 = new Player(2, tank2, 100, 0,0);
+    private static Player player1 = new Player(1, tank1, 60, 0,0, 100);
+    private static Player player2 = new Player(2, tank2, 100, 0,0, 100);
     TankStars game;
     private Texture img;
     private Texture healthBarR;
@@ -45,7 +45,6 @@ public class InGameScreen implements Screen, Serializable {
     private Texture healthBarLine;
     private Texture aim;
     private Texture fireActive;
-    private Texture fuelActive;
     private Texture smallBlazer;
     private Texture smallMark;
     private Texture sliderBar;
@@ -65,6 +64,8 @@ public class InGameScreen implements Screen, Serializable {
     private int turn; // 1 = player 1, 2 = player 2
 
     private Stage stage;
+    private Texture fuelBar;
+
     public InGameScreen(TankStars game) {
         blank = new Texture("blank.png");
         ground = new Texture("ground - Copy.jpeg");
@@ -79,7 +80,6 @@ public class InGameScreen implements Screen, Serializable {
         vs = new Texture("vs.png");
         fire = new Texture("FIRE.png");
         fireActive = new Texture("FIREACTIV.png");
-        fuelActive = new Texture("FUEL-1.png");
         fuel = new Texture("fuel.png");
         power = new Texture("power.png");
         angle = new Texture("angle.png");
@@ -104,6 +104,9 @@ public class InGameScreen implements Screen, Serializable {
         sliderPositionY = 193;
         aimPositionX = 1500;
         aimPositionY = 200;
+        fuelBar = new Texture("fuelBar.png");
+        player1.setFuel(100);
+        player2.setFuel(100);
 //        groundHeight = new ArrayList<Float>();
 //        // initialise ground heights to hilly terrain.
 //        float initialHeight = 500;
@@ -156,20 +159,27 @@ public class InGameScreen implements Screen, Serializable {
         stage.act();
         stage.draw();
         ScreenUtils.clear(0,0,0,1);
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            x = x + 4;
-        }
+        if (player1.getFuel()>0) {
+            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+                x = x + 3;
+                player1.setFuel(player1.getFuel() - 1);
+            }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-            x = x - 4;
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+                x = x - 3;
+                player1.setFuel(player1.getFuel() - 1);
+            }
         }
+        if (player2.getFuel()>0) {
+            if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+                x2 = x2 + 2;
+                player2.setFuel(player2.getFuel() - 2);
+            }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-            x2 = x2 + 4;
-        }
-
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)){
-            x2 = x2 - 4;
+            if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+                x2 = x2 - 2;
+                player2.setFuel(player2.getFuel() - 2);
+            }
         }
 
         stage.getBatch().begin();
@@ -208,6 +218,12 @@ public class InGameScreen implements Screen, Serializable {
         stage.getBatch().draw(p1, 320, 950);
         stage.getBatch().draw(p2, 1500, 950);
         stage.getBatch().draw(fire, 1090, 158);
+        if (player1.getFuel() == 100) {
+            stage.getBatch().draw(fuelBar, 263, 293, fuel.getWidth()-4, fuel.getHeight());
+        }
+        else {
+            stage.getBatch().draw(fuelBar, 263, 293, (int) (player1.getFuel() * (fuel.getWidth()-4) /100), fuel.getHeight());
+        }
         stage.getBatch().draw(fuel, 261, 293);
         stage.getBatch().draw(power, 213, 540);
         stage.getBatch().draw(angle, 295, 540);
