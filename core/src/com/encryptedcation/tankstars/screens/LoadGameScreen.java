@@ -5,7 +5,12 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.encryptedcation.tankstars.SavedGame;
 import com.encryptedcation.tankstars.TankStars;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 
 public class LoadGameScreen implements Screen {
     private TankStars game;
@@ -70,6 +75,20 @@ public class LoadGameScreen implements Screen {
         int p = TankStars.WIDTH / 2 - GAME_BUTTON_WIDTH / 2;
         if (Gdx.input.getX() < 489 && Gdx.input.getX() > 154 && Gdx.input.getY() < 281 && Gdx.input.getY() > 150){
             stage.getBatch().draw(gameButton1Sel, 154, 746, GAME_BUTTON_WIDTH, GAME_BUTTON_HEIGHT);
+            if (Gdx.input.justTouched()) {
+                SavedGame savedGame = null;
+                try {
+                    FileInputStream fis = new FileInputStream("savedGame1.ser");
+                    ObjectInputStream ois = new ObjectInputStream(fis);
+                    savedGame = (SavedGame) ois.readObject();
+                }
+                catch (IOException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                InGameScreen inGameScreen = new InGameScreen(game, savedGame);
+                this.dispose();
+                game.setScreen(inGameScreen);
+            }
         }
         else{
             stage.getBatch().draw(gameButton1, 154, GAME_BUTTON_Y, GAME_BUTTON_WIDTH, GAME_BUTTON_HEIGHT);
@@ -77,7 +96,20 @@ public class LoadGameScreen implements Screen {
 
         if (Gdx.input.getX() < 915 && Gdx.input.getX() > 580 && Gdx.input.getY() < 281 && Gdx.input.getY() > 150) {
             stage.getBatch().draw(gameButton2Sel, 580, GAME_BUTTON_Y, GAME_BUTTON_WIDTH, GAME_BUTTON_HEIGHT);
-//            if (Gdx.input.justTouched()) {}
+            if (Gdx.input.justTouched()) {
+                SavedGame savedGame = null;
+                try {
+                    FileInputStream fis = new FileInputStream("savedGame2.ser");
+                    ObjectInputStream ois = new ObjectInputStream(fis);
+                    savedGame = (SavedGame) ois.readObject();
+                }
+                catch (IOException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                InGameScreen inGameScreen = new InGameScreen(game, savedGame);
+                this.dispose();
+                game.setScreen(inGameScreen);
+            }
         }
         else{
             stage.getBatch().draw(gameButton2, 580, GAME_BUTTON_Y, GAME_BUTTON_WIDTH, GAME_BUTTON_HEIGHT);
@@ -85,8 +117,20 @@ public class LoadGameScreen implements Screen {
 
         if (Gdx.input.getX() < 1767 && Gdx.input.getX() > 1432 && Gdx.input.getY() < 281 && Gdx.input.getY() > 150){
             stage.getBatch().draw(gameButton4Sel, 1432, GAME_BUTTON_Y, GAME_BUTTON_WIDTH, GAME_BUTTON_HEIGHT);
-//            if (Gdx.input.justTouched()) {
-//            }
+            if (Gdx.input.justTouched()) {
+                SavedGame savedGame = null;
+                try {
+                    FileInputStream fis = new FileInputStream("savedGame3.ser");
+                    ObjectInputStream ois = new ObjectInputStream(fis);
+                    savedGame = (SavedGame) ois.readObject();
+                }
+                catch (IOException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                InGameScreen inGameScreen = new InGameScreen(game, savedGame);
+                this.dispose();
+                game.setScreen(inGameScreen);
+            }
         }
         else{
             stage.getBatch().draw(gameButton4, 1432, GAME_BUTTON_Y, GAME_BUTTON_WIDTH, GAME_BUTTON_HEIGHT);
@@ -94,8 +138,20 @@ public class LoadGameScreen implements Screen {
 
         if (Gdx.input.getX() < 1341 && Gdx.input.getX() > 1006 && Gdx.input.getY() < 281 && Gdx.input.getY() > 150) {
             stage.getBatch().draw(gameButton3Sel, 1006, GAME_BUTTON_Y, GAME_BUTTON_WIDTH, GAME_BUTTON_HEIGHT);
-//            if (Gdx.input.justTouched()) {
-//            }
+            if (Gdx.input.justTouched()) {
+                SavedGame savedGame = null;
+                try {
+                    FileInputStream fis = new FileInputStream("savedGame4.ser");
+                    ObjectInputStream ois = new ObjectInputStream(fis);
+                    savedGame = (SavedGame) ois.readObject();
+                }
+                catch (IOException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                InGameScreen inGameScreen = new InGameScreen(game, savedGame);
+                this.dispose();
+                game.setScreen(inGameScreen);
+            }
         }
         else{
             stage.getBatch().draw(gameButton3, 1006, GAME_BUTTON_Y, GAME_BUTTON_WIDTH, GAME_BUTTON_HEIGHT);

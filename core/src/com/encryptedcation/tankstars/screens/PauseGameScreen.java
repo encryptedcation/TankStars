@@ -88,7 +88,25 @@ public class PauseGameScreen extends SelectTankScreen implements Screen {
             if (Gdx.input.justTouched()) {
                 this.dispose();
                 try{
-                    FileOutputStream fileOut = new FileOutputStream("savedGame.ser");
+                    // if savedGame1.ser exists, try to save to savedGame2.ser, else save to savedGame3.ser else save to savedGame4.ser else save to savedGame1.ser
+                    FileOutputStream fileOut = null;
+                    if (Gdx.files.local("savedGame1.ser").exists()) {
+                        if (Gdx.files.local("savedGame2.ser").exists()) {
+                            if (Gdx.files.local("savedGame3.ser").exists()) {
+                                if (Gdx.files.local("savedGame4.ser").exists()) {
+                                    fileOut = new FileOutputStream("savedGame1.ser");
+                                } else {
+                                    fileOut = new FileOutputStream("savedGame4.ser");
+                                }
+                            } else {
+                                fileOut = new FileOutputStream("savedGame3.ser");
+                            }
+                        } else {
+                            fileOut = new FileOutputStream("savedGame2.ser");
+                        }
+                    } else {
+                        fileOut = new FileOutputStream("savedGame1.ser");
+                    }
                     ObjectOutputStream out = new ObjectOutputStream(fileOut);
                     out.writeObject(this.savedGame);
                     out.close();
