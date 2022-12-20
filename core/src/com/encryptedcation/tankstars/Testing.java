@@ -1,11 +1,8 @@
 package com.encryptedcation.tankstars;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.encryptedcation.tankstars.screens.AltInGameScreen;
 import com.encryptedcation.tankstars.screens.InGameScreen;
 import org.testng.annotations.Test;
 
 import static org.testng.AssertJUnit.assertEquals;
-import static org.testng.TestNGAntTask.Mode.junit;
 
 public class Testing {
 

@@ -209,7 +209,7 @@ public class SelectTankScreen implements Screen {
                     flag = 0;
                 } else if (flagPlayer == 1) {
                     // move to game screen
-                    game.setScreen(new AltInGameScreen(game));
+                    game.setScreen(new InGameScreen(game));
                 }
             }
         }
