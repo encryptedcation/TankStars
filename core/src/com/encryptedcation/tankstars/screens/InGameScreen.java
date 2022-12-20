@@ -121,6 +121,13 @@ public class InGameScreen implements Screen, Serializable {
 //        }
     }
 
+    public InGameScreen(TankStars game, SavedGame savedGame) {
+        this(game);
+        player1 = savedGame.getPlayer1();
+        player2 = savedGame.getPlayer2();
+        turn = savedGame.getTurn();
+    }
+
     public static int getWinner() {
         if (player1.getHealth() <= 0) {
             return 2;
