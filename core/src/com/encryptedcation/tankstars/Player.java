@@ -81,7 +81,4 @@ public class Player implements java.io.Serializable {
     private void move() {
         // TODO
     }
-
-
-    
 }
