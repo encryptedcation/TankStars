@@ -20,7 +20,7 @@ public class InGameScreen implements Screen, Serializable {
     private static Tank tank2;
     private Texture p1;
     private Texture p2;
-    private static Player player1 = new Player(1, tank1, 0, 0,0);
+    private static Player player1 = new Player(1, tank1, 60, 0,0);
     private static Player player2 = new Player(2, tank2, 100, 0,0);
     TankStars game;
     private Texture img;
