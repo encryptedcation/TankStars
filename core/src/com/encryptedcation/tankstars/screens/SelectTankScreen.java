@@ -6,9 +6,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.encryptedcation.tankstars.TankStars;
+import com.encryptedcation.tankstars.*;
 
 public class SelectTankScreen implements Screen {
+    private static Player player1;
+    private static Player player2;
+    private Tank m1;
+    private Tank m2;
     private float x;
     private float y;
     private Stage stage;
@@ -71,6 +75,16 @@ public class SelectTankScreen implements Screen {
         playerTwoChooseActive = new Texture("playerTwoChooseActive.png");
         names = new Texture("names.png");
         stage = new Stage(new StretchViewport(1920, 1080));
+        m1 = new Mark("Mark", 0, 0, 0, 100, null);
+        m2 = new Mark("Mark", 0, 0, 0, 100, null);
+        player1 = new Player(1, m1, 100, 0, 0);
+        player2 = new Player(2, m2, 100, 0, 0);
+    }
+    public static Player getPlayer1() {
+        return player1;
+    }
+    public static Player getPlayer2() {
+        return player2;
     }
     @Override
     public void show() {
@@ -86,7 +100,7 @@ public class SelectTankScreen implements Screen {
         stage.getBatch().draw(img, x, y);
         // if flagPlayer == 0, player 1 is choosing
         // if flagPlayer == 1, player 2 is choosing
-        if (flagPlayer == 0) {
+        if (flag == 0) {
             stage.getBatch().draw(playerOneChooseActive, 359, 926);
             stage.getBatch().draw(playerTwoChoose, 1201, 926);
         } else {
@@ -111,6 +125,12 @@ public class SelectTankScreen implements Screen {
 
 //        ---------------------------------------------------
 
+        // player 1 hovers first and can choose out of 3 tanks on the left, smolMark, smolToxic, smolBlazer
+        // player 2 hovers second and can choose out of 3 tanks on the right, smolMark, smolToxic, smolBlazer
+        int flag = 0;
+        Tank t1 = new Mark("Mark", 0, 0, 0, 100, null);
+        Tank t2 = new Mark("Mark", 0, 0, 0, 100, null);
+              //----------------------------------------------------------------------
 // if hovered over circleNoBG then it changes
         if (Gdx.input.getX() > 147 && Gdx.input.getX() < 147 + 256 && Gdx.input.getY() > 1080 - 657 - 256 && Gdx.input.getY() < 1080 - 657) {
             stage.getBatch().draw(highlightedMark, 147, 657);
@@ -154,23 +174,37 @@ public class SelectTankScreen implements Screen {
         if (Gdx.input.isTouched()) {
             if (Gdx.input.getX() > 147 && Gdx.input.getX() < 147 + 256 && Gdx.input.getY() > 1080 - 657 - 256 && Gdx.input.getY() < 1080 - 657) {
                 flag = 1;
+                Tank t4 = new Mark("Mark", 0, 0, 0, 100, null);
+                getPlayer1().setTank(t4);
             }
             if (Gdx.input.getX() > 431 && Gdx.input.getX() < 431 + 256 && Gdx.input.getY() > 1080 - 657 - 256 && Gdx.input.getY() < 1080 - 657) {
                 flag = 2;
+                Tank t5 = new Toxic("Toxic", 0, 0, 0, 100, null);
+                getPlayer1().setTank(t5);
             }
             if (Gdx.input.getX() > 715 && Gdx.input.getX() < 715 + 256 && Gdx.input.getY() > 1080 - 657 - 256 && Gdx.input.getY() < 1080 - 657) {
                 flag = 3;
+                Tank t6 = new Blazer("Blazer", 0, 0, 0, 100, null);
+                getPlayer1().setTank(t6);
             }
             if (Gdx.input.getX() > 975 && Gdx.input.getX() < 975 + 256 && Gdx.input.getY() > 1080 - 657 - 256 && Gdx.input.getY() < 1080 - 657) {
                 flag = 4;
+                Tank t7 = new Mark("Mark", 0, 0, 0, 100, null);
+                getPlayer2().setTank(t7);
             }
             if (Gdx.input.getX() > 1259 && Gdx.input.getX() < 1259 + 256 && Gdx.input.getY() > 1080 - 657 - 256 && Gdx.input.getY() < 1080 - 657) {
                 flag = 5;
+                Tank t8 = new Toxic("Toxic", 0, 0, 0, 100, null);
+                getPlayer2().setTank(t8);
             }
             if (Gdx.input.getX() > 1543 && Gdx.input.getX() < 1543 + 256 && Gdx.input.getY() > 1080 - 657 - 256 && Gdx.input.getY() < 1080 - 657) {
                 flag = 6;
+                Tank t9 = new Blazer("Blazer", 0, 0, 0, 100, null);
+                getPlayer2().setTank(t9);
             }
         }
+
+        getPlayer2().setTank(t2);
         // if flag is set, draw the highlighted image
         if (flag == 1) {
             stage.getBatch().draw(highlightedMark, 147, 657);

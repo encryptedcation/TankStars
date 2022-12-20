@@ -15,14 +15,13 @@ import com.encryptedcation.tankstars.TankStars;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class InGameScreen implements Screen, Serializable {
     private static Tank tank1;
     private static Tank tank2;
     private Texture p1;
     private Texture p2;
-    private static Player player1 = new Player(1, tank1, 60, 0,0);
-    private static Player player2 = new Player(2, tank2, 100, 0,0);
     TankStars game;
     private Texture img;
     private Texture healthBarR;
@@ -48,6 +47,7 @@ public class InGameScreen implements Screen, Serializable {
     private Texture fuelActive;
     private Texture smallBlazer;
     private Texture smallMark;
+    private Texture smallToxic;
     private Texture sliderBar;
     private Texture blank;
     private Texture sliderButton;
@@ -58,6 +58,7 @@ public class InGameScreen implements Screen, Serializable {
     private int sliderPositionY;
     private boolean aimControl;
     private int aimPositionX;
+
     private int aimPositionY;
 
     private float x  = 204;
@@ -89,6 +90,7 @@ public class InGameScreen implements Screen, Serializable {
         aim = new Texture("aim.png");
         smallBlazer = new Texture("blazerSmall.png");
         smallMark = new Texture("markSmall.png");
+        smallToxic = new Texture("toxicSmall.png");
         this.game = game;
         sliderBar = new Texture("sliderBar.png");
         sliderButton = new Texture("sliderCircle.png");
@@ -122,9 +124,9 @@ public class InGameScreen implements Screen, Serializable {
     }
 
     public static int getWinner() {
-        if (player1.getHealth() <= 0) {
+        if (SelectTankScreen.getPlayer1().getHealth() <= 0) {
             return 2;
-        } else if (player2.getHealth() <= 0) {
+        } else if (SelectTankScreen.getPlayer2().getHealth() <= 0) {
             return 1;
         } else {
             return 0;
@@ -132,11 +134,11 @@ public class InGameScreen implements Screen, Serializable {
     }
 
     public static Player getPlayer1() {
-        return player1;
+        return SelectTankScreen.getPlayer1();
     }
 
     public static Player getPlayer2() {
-        return player2;
+        return SelectTankScreen.getPlayer2();
     }
 
     @Override
@@ -176,22 +178,22 @@ public class InGameScreen implements Screen, Serializable {
         int xHealthLineStart = 795;
         int width = 27;
         // full bar
-        if (player1.getHealth() == 100) {
+        if (SelectTankScreen.getPlayer1().getHealth() == 100) {
             stage.getBatch().draw(healthBarLine, 280, 925, width * 20, 68);
         }
         else {
             // partial bar
-            stage.getBatch().draw(healthBarLine, 280, 925, width * (int) (player1.getHealth() / 5), 68);
+            stage.getBatch().draw(healthBarLine, 280, 925, width * (int) (SelectTankScreen.getPlayer1().getHealth() / 5), 68);
         }
 
         stage.getBatch().draw(healthBarR, 1011, 909);
 
-        if (player2.getHealth() == 100) {
+        if (SelectTankScreen.getPlayer2().getHealth() == 100) {
             stage.getBatch().draw(healthBarLine, 1124, 925, width * 20, 68);
         }
         else {
             // partial bar
-            stage.getBatch().draw(healthBarLine, 1124, 925, width * (int) (player2.getHealth() / 5), 68);
+            stage.getBatch().draw(healthBarLine, 1124, 925, width * (int) (SelectTankScreen.getPlayer2().getHealth() / 5), 68);
         }
 //        }
 //
@@ -205,8 +207,22 @@ public class InGameScreen implements Screen, Serializable {
         stage.getBatch().draw(power, 213, 540);
         stage.getBatch().draw(angle, 295, 540);
         stage.getBatch().draw(pause, 25, 980);
-        stage.getBatch().draw(smallBlazer, x2, 455);
-        stage.getBatch().draw(smallMark, x, 450);
+//        stage.getBatch().draw(smallBlazer, x2, 455);
+//        stage.getBatch().draw(smallMark, x, 450);
+        if (Objects.equals(SelectTankScreen.getPlayer1().getTank().getName(), "Blazer")) {
+            stage.getBatch().draw(smallBlazer, x, 450);
+        } else if (Objects.equals(SelectTankScreen.getPlayer1().getTank().getName(), "Mark")) {
+            stage.getBatch().draw(smallMark, x, 450);
+        } else if (Objects.equals(SelectTankScreen.getPlayer1().getTank().getName(), "Toxic")) {
+            stage.getBatch().draw(smallToxic, x, 455);
+        }
+        if (Objects.equals(SelectTankScreen.getPlayer2().getTank().getName(), "Blazer")) {
+            stage.getBatch().draw(smallBlazer, x2, 455);
+        } else if (Objects.equals(SelectTankScreen.getPlayer2().getTank().getName(), "Mark")) {
+            stage.getBatch().draw(smallMark, x2, 455);
+        } else if (Objects.equals(SelectTankScreen.getPlayer2().getTank().getName(), "Toxic")) {
+            stage.getBatch().draw(smallToxic, x2, 455);
+        }
         stage.getBatch().draw(sliderBar, 261, 193);
         stage.getBatch().draw(sliderButton, sliderPositionX, sliderPositionY);
         stage.getBatch().draw(aim, aimPositionX, aimPositionY);
@@ -285,7 +301,7 @@ public class InGameScreen implements Screen, Serializable {
             if (Gdx.input.isTouched()) {
                 this.dispose();
                 // make a SavedGame class object and pass it to PauseGameScreen
-                SavedGame savedGame = new SavedGame(player1, player2, turn);
+                SavedGame savedGame = new SavedGame(getPlayer1(), getPlayer2(), turn);
                 game.setScreen(new PauseGameScreen(game, savedGame));
             }
         }
@@ -294,11 +310,11 @@ public class InGameScreen implements Screen, Serializable {
         }
 
         // if health of any player is 0 then go to VictoryScreen
-        if (player1.getHealth() <= 0) {
+        if (SelectTankScreen.getPlayer1().getHealth() <= 0) {
             this.dispose();
             game.setScreen(new VictoryPage(game));
         }
-        if (player2.getHealth() <= 0) {
+        if (SelectTankScreen.getPlayer2().getHealth() <= 0) {
             this.dispose();
             game.setScreen(new VictoryPage(game));
         }
