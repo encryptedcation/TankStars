@@ -7,6 +7,9 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -178,6 +181,18 @@ public class InGameScreen implements Screen, Serializable {
         }
     }
 
+    public float gravity;
+    public Vector2 initialVelocity = new Vector2();
+    public Vector2 initialPosition = new Vector2();
+
+    public float getX(float time) {
+        return initialPosition.x + initialVelocity.x * time;
+    }
+
+    public float getY(float time) {
+        return initialPosition.y + initialVelocity.y * time + 0.5f * gravity * time * time;
+    }
+
     @Override
     public void render(float delta) {
         stage.act();
@@ -327,6 +342,23 @@ public class InGameScreen implements Screen, Serializable {
             aimControl = false;
             aimPositionX = 1500;
             aimPositionY = 200;
+        }
+
+        Player currentPlayer = turn == 1 ? player1 : player2;
+        initialPosition.x = currentPlayer.x;
+        initialPosition.y = 450;
+        initialVelocity = new Vector2((float) (currentPlayer.getPowerOfShooting() * Math.cos(currentPlayer.getAngleOfShooting() * Math.PI / 180)), (float) (currentPlayer.getPowerOfShooting() * Math.sin(currentPlayer.getAngleOfShooting() * Math.PI / 180)));
+        float timeForFall = (float) (initialVelocity.y / -9.8);
+
+        // draw projectile trajectory using small circles and getX and getY methods
+        Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+        pixmap.setColor(Color.WHITE);
+        pixmap.fillCircle(0, 0, 1);
+        Texture whiteCircle = new Texture(pixmap);
+
+
+        for (float t = 0; t < timeForFall; t += 0.01) {
+            stage.getBatch().draw(whiteCircle, getX(t), getY(t), 5, 5);
         }
 
         //change fire button if hovered
