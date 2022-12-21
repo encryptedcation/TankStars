@@ -1,6 +1,8 @@
 package com.encryptedcation.tankstars;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.encryptedcation.tankstars.exceptions.OutOfFuelException;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -11,6 +13,7 @@ public class Tank implements java.io.Serializable {
     public int positionX;
     public int positionY;
     public int direction;
+    protected Texture texture;
     ArrayList<Attack> attacks = new ArrayList<Attack>();
     public Tank(String name, int positionX, int positionY, int direction, int fuel, Attack defaultAttack) {
         this.name = name;
@@ -102,6 +105,11 @@ public class Tank implements java.io.Serializable {
 
     public ArrayList<Attack> getAttacks() {
         return attacks;
+    }
+
+    public Texture getTexture(
+    ) {
+        return texture;
     }
 
     // get default attack

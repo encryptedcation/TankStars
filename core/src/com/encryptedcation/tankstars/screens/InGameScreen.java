@@ -91,8 +91,8 @@ public class InGameScreen implements Screen, Serializable {
         arrowDown = new Texture("arrowDown.png");
         pauseSel = new Texture("pauseSel.png");
         aim = new Texture("aim.png");
-        smallBlazer = new Texture("blazerSmall.png");
-        smallMark = new Texture("markSmall.png");
+        smallBlazer = new Texture("gameTanks/blazerSmall.png");
+        smallMark = new Texture("gameTanks/markSmall.png");
         this.game = game;
         sliderBar = new Texture("sliderBar.png");
         sliderButton = new Texture("sliderCircle.png");
@@ -254,8 +254,9 @@ public class InGameScreen implements Screen, Serializable {
         powerLabel.draw(stage.getBatch(), 1);
         angleLabel.draw(stage.getBatch(), 1);
         stage.getBatch().draw(pause, 25, 980);
-        stage.getBatch().draw(smallBlazer, player2.x, 455);
-        stage.getBatch().draw(smallMark, player1.x, 450);
+        // select tank and draw it at player.x
+        stage.getBatch().draw(player2.getTank().getTexture(), player2.x, 455);
+        stage.getBatch().draw(player1.getTank().getTexture(), player1.x, 450);
 //        stage.getBatch().draw(sliderBar, 261, 193);
 //        stage.getBatch().draw(sliderButton, sliderPositionX, sliderPositionY);
         stage.getBatch().draw(aim, aimPositionX, aimPositionY);

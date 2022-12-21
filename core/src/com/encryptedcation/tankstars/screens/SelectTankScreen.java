@@ -11,8 +11,6 @@ import com.encryptedcation.tankstars.*;
 public class SelectTankScreen implements Screen {
     private static Player player1;
     private static Player player2;
-    private Tank m1;
-    private Tank m2;
     private float x;
     private float y;
     private Stage stage;
@@ -64,9 +62,9 @@ public class SelectTankScreen implements Screen {
 
         choose = new Texture("Group 22.png");
         chooseSel = new Texture("Group 21.png");
-        smolBlazer = new Texture("smolBlazer.png");
-        smolMark = new Texture("smolMark.png");
-        smolToxic = new Texture("smolToxic.png");
+        smolBlazer = new Texture("gameTanks/smolBlazer.png");
+        smolMark = new Texture("gameTanks/smolMark.png");
+        smolToxic = new Texture("gameTanks/smolToxic.png");
         circleNoBG = new Texture("circleNoBG.png");
         highlightedBlazer = new Texture("hltdBlazer.png");
         highlightedMark = new Texture("highlightedMark.png");
@@ -75,10 +73,8 @@ public class SelectTankScreen implements Screen {
         playerTwoChooseActive = new Texture("playerTwoChooseActive.png");
         names = new Texture("names.png");
         stage = new Stage(new StretchViewport(1920, 1080));
-        m1 = new Mark("Mark", 0, 0, 0, 100, null);
-        m2 = new Mark("Mark", 0, 0, 0, 100, null);
-        player1 = new Player(1, m1, 100, 0, 0, 0);
-        player2 = new Player(2, m2, 100, 0, 0, 0);
+        player1 = new Player(1, new Mark("Mark", 0, 0, 0, 100, null), 100, 0, 0, 0);
+        player2 = new Player(2, new Mark("Mark", 0, 0, 0, 100, null), 100, 0, 0, 0);
     }
     public static Player getPlayer1() {
         return player1;
@@ -201,38 +197,38 @@ public class SelectTankScreen implements Screen {
         // if clicked, save highlight
         // Mehul: We might need to change this as the Gdx.input.isTouched() is a very momentary action and the code does not reach this part.
         // We can try shifting everything up
-        if (Gdx.input.isTouched()) {
-            if (Gdx.input.getX() > 147 && Gdx.input.getX() < 147 + 256 && Gdx.input.getY() > 1080 - 657 - 256 && Gdx.input.getY() < 1080 - 657) {
-                flag = 1;
-                Tank t4 = new Mark("Mark", 0, 0, 0, 100, null);
-                getPlayer1().setTank(t4);
-            }
-            if (Gdx.input.getX() > 431 && Gdx.input.getX() < 431 + 256 && Gdx.input.getY() > 1080 - 657 - 256 && Gdx.input.getY() < 1080 - 657) {
-                flag = 2;
-                Tank t5 = new Toxic("Toxic", 0, 0, 0, 100, null);
-                getPlayer1().setTank(t5);
-            }
-            if (Gdx.input.getX() > 715 && Gdx.input.getX() < 715 + 256 && Gdx.input.getY() > 1080 - 657 - 256 && Gdx.input.getY() < 1080 - 657) {
-                flag = 3;
-                Tank t6 = new Blazer("Blazer", 0, 0, 0, 100, null);
-                getPlayer1().setTank(t6);
-            }
-            if (Gdx.input.getX() > 975 && Gdx.input.getX() < 975 + 256 && Gdx.input.getY() > 1080 - 657 - 256 && Gdx.input.getY() < 1080 - 657) {
-                flag = 4;
-                Tank t7 = new Mark("Mark", 0, 0, 0, 100, null);
-                getPlayer2().setTank(t7);
-            }
-            if (Gdx.input.getX() > 1259 && Gdx.input.getX() < 1259 + 256 && Gdx.input.getY() > 1080 - 657 - 256 && Gdx.input.getY() < 1080 - 657) {
-                flag = 5;
-                Tank t8 = new Toxic("Toxic", 0, 0, 0, 100, null);
-                getPlayer2().setTank(t8);
-            }
-            if (Gdx.input.getX() > 1543 && Gdx.input.getX() < 1543 + 256 && Gdx.input.getY() > 1080 - 657 - 256 && Gdx.input.getY() < 1080 - 657) {
-                flag = 6;
-                Tank t9 = new Blazer("Blazer", 0, 0, 0, 100, null);
-                getPlayer2().setTank(t9);
-            }
-        }
+//        if (Gdx.input.isTouched()) {
+//            if (Gdx.input.getX() > 147 && Gdx.input.getX() < 147 + 256 && Gdx.input.getY() > 1080 - 657 - 256 && Gdx.input.getY() < 1080 - 657) {
+//                flag = 1;
+//                Tank t4 = new Mark("Mark", 0, 0, 0, 100, null);
+//                getPlayer1().setTank(t4);
+//            }
+//            if (Gdx.input.getX() > 431 && Gdx.input.getX() < 431 + 256 && Gdx.input.getY() > 1080 - 657 - 256 && Gdx.input.getY() < 1080 - 657) {
+//                flag = 2;
+//                Tank t5 = new Toxic("Toxic", 0, 0, 0, 100, null);
+//                getPlayer1().setTank(t5);
+//            }
+//            if (Gdx.input.getX() > 715 && Gdx.input.getX() < 715 + 256 && Gdx.input.getY() > 1080 - 657 - 256 && Gdx.input.getY() < 1080 - 657) {
+//                flag = 3;
+//                Tank t6 = new Blazer("Blazer", 0, 0, 0, 100, null);
+//                getPlayer1().setTank(t6);
+//            }
+//            if (Gdx.input.getX() > 975 && Gdx.input.getX() < 975 + 256 && Gdx.input.getY() > 1080 - 657 - 256 && Gdx.input.getY() < 1080 - 657) {
+//                flag = 4;
+//                Tank t7 = new Mark("Mark", 0, 0, 0, 100, null);
+//                getPlayer2().setTank(t7);
+//            }
+//            if (Gdx.input.getX() > 1259 && Gdx.input.getX() < 1259 + 256 && Gdx.input.getY() > 1080 - 657 - 256 && Gdx.input.getY() < 1080 - 657) {
+//                flag = 5;
+//                Tank t8 = new Toxic("Toxic", 0, 0, 0, 100, null);
+//                getPlayer2().setTank(t8);
+//            }
+//            if (Gdx.input.getX() > 1543 && Gdx.input.getX() < 1543 + 256 && Gdx.input.getY() > 1080 - 657 - 256 && Gdx.input.getY() < 1080 - 657) {
+//                flag = 6;
+//                Tank t9 = new Blazer("Blazer", 0, 0, 0, 100, null);
+//                getPlayer2().setTank(t9);
+//            }
+//        }
 
 
 //        -----------------------------------------------------
