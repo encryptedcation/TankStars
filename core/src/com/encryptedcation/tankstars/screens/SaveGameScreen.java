@@ -53,8 +53,6 @@ public class SaveGameScreen implements Screen {
             stage.getBatch().draw(backButton, x, BACK_BUTTON_Y, BACK_BUTTON_WIDTH, BACK_BUTTON_HEIGHT);
         }
 
-
-
         stage.getBatch().end();
     }
 

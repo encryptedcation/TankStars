@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.encryptedcation.tankstars.TankStars;
 
 public class MainScreen implements Screen {
+
     private Texture img;
     private Texture newGameButton;
     private Texture exitButton;

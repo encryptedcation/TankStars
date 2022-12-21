@@ -73,8 +73,16 @@ public class SelectTankScreen implements Screen {
         playerTwoChooseActive = new Texture("playerTwoChooseActive.png");
         names = new Texture("names.png");
         stage = new Stage(new StretchViewport(1920, 1080));
-        player1 = new Player(1, new Mark("Mark", 0, 0, 0,  100, null), 100, 0, 0);
-        player2 = new Player(2, new Mark("Mark", 0, 0, 0, 100, null), 100, 0, 0);
+        // make sure there is only one instance of player1
+        // singleton pattern
+        if (player1 == null) {
+            player1 = new Player(1, new Mark("Mark", 0, 0, 0,  100, null), 100, 0, 0);
+        }
+        if (player2 == null) {
+            player2 = new Player(2, new Mark("Mark", 0, 0, 0,  100, null), 100, 0, 0);
+        }
+//        player1 = new Player(1, new Mark("Mark", 0, 0, 0,  100, null), 100, 0, 0);
+//        player2 = new Player(2, new Mark("Mark", 0, 0, 0, 100, null), 100, 0, 0);
     }
     public static Player getPlayer1() {
         return player1;
@@ -266,6 +274,7 @@ public class SelectTankScreen implements Screen {
                 if (flagPlayer == 0) {
                     flagPlayer = 1;
                     flag = 0;
+                    // singleton design pattern
                     player1.setTank(tank);
                 } else if (flagPlayer == 1) {
                     // move to game screen

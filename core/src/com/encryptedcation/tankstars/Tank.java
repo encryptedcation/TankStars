@@ -2,17 +2,19 @@ package com.encryptedcation.tankstars;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.encryptedcation.tankstars.exceptions.OutOfFuelException;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 
-public class Tank implements java.io.Serializable {
+public class Tank implements java.io.Serializable, Iterable<Attack> {
     // default tank is Mark 1
     private int fuel;
     public String name;
     public int positionX;
     public int positionY;
     public int direction;
+    private ArrayList<Tank> tanks = new ArrayList<Tank>();
     protected String pathToTexture;
     ArrayList<Attack> attacks = new ArrayList<Attack>();
     public Tank(String name, int positionX, int positionY, int direction, int fuel, Attack defaultAttack) {
@@ -90,6 +92,11 @@ public class Tank implements java.io.Serializable {
         return name;
     }
 
+    public void getTanks() {
+        // use iterator design pattern
+
+    }
+
     // set name
     public void setName(String name) {
         this.name = name;
@@ -110,6 +117,19 @@ public class Tank implements java.io.Serializable {
     public Texture getTexture(
     ) {
         return new Texture(pathToTexture);
+    }
+
+    @Override
+    public Iterator<Attack> iterator() {
+        return attacks.iterator();
+    }
+
+    public void iterateOverTanks() {
+        Collection<Tank> c = tanks;
+        Iterator<Tank> itr = c.iterator();
+        while (itr.hasNext()) {
+            System.out.println(itr.next());
+        }
     }
 
     // get default attack
