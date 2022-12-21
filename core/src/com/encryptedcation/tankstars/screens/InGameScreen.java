@@ -65,8 +65,7 @@ public class InGameScreen implements Screen, Serializable {
     private Label powerLabel;
     private Label angleLabel;
 
-    private float x  = 204;
-    private float x2 = 1566;
+
     private int turn; // 1 = player 1, 2 = player 2
 
     private Stage stage;
@@ -123,6 +122,8 @@ public class InGameScreen implements Screen, Serializable {
         player2.setAngleOfShooting(0);
         player1.setPowerOfShooting(0);
         player2.setPowerOfShooting(0);
+        player1.x  = 204;
+        player2.x = 1566;
         turn = 1;
 //        groundHeight = new ArrayList<Float>();
 //        // initialise ground heights to hilly terrain.
@@ -171,38 +172,30 @@ public class InGameScreen implements Screen, Serializable {
 
     }
 
+    private void handleInput(Player player){
+        if (player.getFuel() > 0) {
+            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+                player.x = player.x + 3;
+                player.setFuel(player.getFuel() - 1);
+            }
+
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+                player.x = player.x - 3;
+                player.setFuel(player.getFuel() - 1);
+            }
+        }
+    }
+
     @Override
     public void render(float delta) {
         stage.act();
         stage.draw();
         ScreenUtils.clear(0,0,0,1);
         if (turn == 1) {
-            if (player1.getFuel() > 0) {
-                if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-                    x = x + 3;
-                    player1.setFuel(player1.getFuel() - 1);
-                }
-
-                if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-                    x = x - 3;
-                    player1.setFuel(player1.getFuel() - 1);
-                }
-            }
+            handleInput(player1);
+        } else {
+            handleInput(player2);
         }
-        else {
-            if (player2.getFuel() > 0) {
-                if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-                    x2 = x2 + 3;
-                    player2.setFuel(player2.getFuel() - 1);
-                }
-
-                if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-                    x2 = x2 - 3;
-                    player2.setFuel(player2.getFuel() - 1);
-                }
-            }
-        }
-
         stage.getBatch().begin();
         stage.getBatch().draw(img, 0, 0);
 //        for (int i = 0; i < 384; i++) {
@@ -267,10 +260,10 @@ public class InGameScreen implements Screen, Serializable {
         powerLabel.draw(stage.getBatch(), 1);
         angleLabel.draw(stage.getBatch(), 1);
         stage.getBatch().draw(pause, 25, 980);
-        stage.getBatch().draw(smallBlazer, x2, 455);
-        stage.getBatch().draw(smallMark, x, 450);
-        stage.getBatch().draw(sliderBar, 261, 193);
-        stage.getBatch().draw(sliderButton, sliderPositionX, sliderPositionY);
+        stage.getBatch().draw(smallBlazer, player2.x, 455);
+        stage.getBatch().draw(smallMark, player1.x, 450);
+//        stage.getBatch().draw(sliderBar, 261, 193);
+//        stage.getBatch().draw(sliderButton, sliderPositionX, sliderPositionY);
         stage.getBatch().draw(aim, aimPositionX, aimPositionY);
 
 
@@ -283,31 +276,31 @@ public class InGameScreen implements Screen, Serializable {
         //
 
 
-        if(Gdx.input.justTouched() && Gdx.input.getX() > 261 && Gdx.input.getX() < 261 + sliderBar.getWidth() && Gdx.input.getY() > 1080 - 193 - sliderBar.getHeight() && Gdx.input.getY() < 1080 - 193) {
-            sliderControl = true;
-        }
-
-        if (sliderControl) {
-            sliderPositionX = Gdx.input.getX() - sliderButton.getWidth()/2;
-            if (sliderPositionX < 261) {
-                sliderPositionX = 261;
-            }
-            if (sliderPositionX > 261 + sliderBar.getWidth() - sliderButton.getWidth()) {
-                sliderPositionX = 261 + sliderBar.getWidth() - sliderButton.getWidth();
-            }
-            //move tank with speed proportional to slider position, reverse if slider is pulled behind
-            if (sliderPositionX > 261 + sliderBar.getWidth()/2) {
-                x = x + (sliderPositionX - 261 - sliderBar.getWidth()/2)/10;
-            } else {
-                x = x - (261 + sliderBar.getWidth()/2 - sliderPositionX)/10;
-            }
-        }
-
-        if (sliderControl && !Gdx.input.isTouched()) {
-            sliderControl = false;
-            sliderPositionX = 341;
-            sliderPositionY = 193;
-        }
+//        if(Gdx.input.justTouched() && Gdx.input.getX() > 261 && Gdx.input.getX() < 261 + sliderBar.getWidth() && Gdx.input.getY() > 1080 - 193 - sliderBar.getHeight() && Gdx.input.getY() < 1080 - 193) {
+//            sliderControl = true;
+//        }
+//
+//        if (sliderControl) {
+//            sliderPositionX = Gdx.input.getX() - sliderButton.getWidth()/2;
+//            if (sliderPositionX < 261) {
+//                sliderPositionX = 261;
+//            }
+//            if (sliderPositionX > 261 + sliderBar.getWidth() - sliderButton.getWidth()) {
+//                sliderPositionX = 261 + sliderBar.getWidth() - sliderButton.getWidth();
+//            }
+//            //move tank with speed proportional to slider position, reverse if slider is pulled behind
+//            if (sliderPositionX > 261 + sliderBar.getWidth()/2) {
+//                x = x + (sliderPositionX - 261 - sliderBar.getWidth()/2)/10;
+//            } else {
+//                x = x - (261 + sliderBar.getWidth()/2 - sliderPositionX)/10;
+//            }
+//        }
+//
+//        if (sliderControl && !Gdx.input.isTouched()) {
+//            sliderControl = false;
+//            sliderPositionX = 341;
+//            sliderPositionY = 193;
+//        }
 
         // allow user to move aim button in fixed radius
         if (Gdx.input.justTouched() && Gdx.input.getX() > 1500 && Gdx.input.getX() < 1500 + aim.getWidth() && Gdx.input.getY() > 1080 - 200 - aim.getHeight() && Gdx.input.getY() < 1080 - 200) {
