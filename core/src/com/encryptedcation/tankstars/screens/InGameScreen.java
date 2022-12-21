@@ -111,8 +111,6 @@ public class InGameScreen implements Screen, Serializable {
         fuelBar = new Texture("fuelBar.png");
         this.player1 = player1;
         this.player2 = player2;
-        this.player1.setFuel(100);
-        this.player2.setFuel(100);
         BitmapFont font = new BitmapFont();
         // increase font size
         font.getData().setScale(1.5F);

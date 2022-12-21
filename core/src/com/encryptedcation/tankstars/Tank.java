@@ -13,7 +13,7 @@ public class Tank implements java.io.Serializable {
     public int positionX;
     public int positionY;
     public int direction;
-    protected Texture texture;
+    protected String pathToTexture;
     ArrayList<Attack> attacks = new ArrayList<Attack>();
     public Tank(String name, int positionX, int positionY, int direction, int fuel, Attack defaultAttack) {
         this.name = name;
@@ -109,7 +109,7 @@ public class Tank implements java.io.Serializable {
 
     public Texture getTexture(
     ) {
-        return texture;
+        return new Texture(pathToTexture);
     }
 
     // get default attack

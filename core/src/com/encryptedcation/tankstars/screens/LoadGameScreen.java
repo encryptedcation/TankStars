@@ -120,7 +120,7 @@ public class LoadGameScreen implements Screen {
             if (Gdx.input.justTouched()) {
                 SavedGame savedGame = null;
                 try {
-                    FileInputStream fis = new FileInputStream("savedGame3.ser");
+                    FileInputStream fis = new FileInputStream("savedGame4.ser");
                     ObjectInputStream ois = new ObjectInputStream(fis);
                     savedGame = (SavedGame) ois.readObject();
                 }
@@ -141,7 +141,7 @@ public class LoadGameScreen implements Screen {
             if (Gdx.input.justTouched()) {
                 SavedGame savedGame = null;
                 try {
-                    FileInputStream fis = new FileInputStream("savedGame4.ser");
+                    FileInputStream fis = new FileInputStream("savedGame3.ser");
                     ObjectInputStream ois = new ObjectInputStream(fis);
                     savedGame = (SavedGame) ois.readObject();
                 }
