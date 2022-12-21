@@ -69,7 +69,7 @@ public class PauseGameScreen extends SelectTankScreen implements Screen {
             stage.getBatch().draw(resumeSel, 793, 754, WIDTH, HEIGHT);
             if (Gdx.input.isTouched()) {
                 this.dispose();
-                game.setScreen(new InGameScreen(game));
+                game.setScreen(new InGameScreen(game, savedGame));
             }
         }
 

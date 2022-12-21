@@ -7,8 +7,8 @@ import static org.testng.AssertJUnit.assertEquals;
 public class Testing {
 
     @Test
-    public void testPlayer1() {
-        Player player = InGameScreen.getPlayer1();
+    public void testPlayer1(InGameScreen inGameScreen) {
+        Player player = inGameScreen.getPlayer1();
         assertEquals(player.getId(), 1);
         assert player.getTank() != null;
         assert player.getHealth() <= 100;
@@ -16,8 +16,8 @@ public class Testing {
     }
 
     @Test
-    public void testPlayer2() {
-        Player player = InGameScreen.getPlayer2();
+    public void testPlayer2(InGameScreen inGameScreen) {
+        Player player = inGameScreen.getPlayer2();
         assertEquals(player.getId(), 1);
         assert player.getTank() != null;
         assert player.getHealth() <= 100;
@@ -25,9 +25,9 @@ public class Testing {
     }
 
     @Test
-    public void testTank() {
-        Tank tank1 = InGameScreen.getPlayer1().getTank();
-        Tank tank2 = InGameScreen.getPlayer2().getTank();
+    public void testTank(InGameScreen inGameScreen) {
+        Tank tank1 = inGameScreen.getPlayer1().getTank();
+        Tank tank2 = inGameScreen.getPlayer2().getTank();
         assert tank1 != tank2;
         assert tank1.getFuel() <= 100;
         assert tank1.getFuel() > 0;
@@ -37,9 +37,9 @@ public class Testing {
 
     // test that both the players are not null
     @Test
-    public void testPlayers() {
-        Player player1 = InGameScreen.getPlayer1();
-        Player player2 = InGameScreen.getPlayer2();
+    public void testPlayers(InGameScreen inGameScreen) {
+        Player player1 = inGameScreen.getPlayer1();
+        Player player2 = inGameScreen.getPlayer2();
         assert player1 != null;
         assert player2 != null;
     }

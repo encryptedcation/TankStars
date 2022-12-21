@@ -21,12 +21,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class InGameScreen implements Screen, Serializable {
-    private static Tank tank1;
-    private static Tank tank2;
     private Texture p1;
     private Texture p2;
-    private static Player player1 = new Player(1, tank1, 60, 0,0, 100);
-    private static Player player2 = new Player(2, tank2, 100, 0,0, 100);
+    private Player player1 = null;
+    private Player player2 = null;
     TankStars game;
     private Texture img;
     private Texture healthBarR;
@@ -72,7 +70,7 @@ public class InGameScreen implements Screen, Serializable {
     private Texture fuelBar;
     private Skin skin;
 
-    public InGameScreen(TankStars game) {
+    public InGameScreen(TankStars game, Player player1, Player player2) {
         blank = new Texture("blank.png");
         ground = new Texture("ground - Copy.jpeg");
         stage = new Stage(new StretchViewport(1920, 1080));
@@ -111,19 +109,17 @@ public class InGameScreen implements Screen, Serializable {
         aimPositionX = 1500;
         aimPositionY = 200;
         fuelBar = new Texture("fuelBar.png");
-        player1.setFuel(100);
-        player2.setFuel(100);
+        this.player1 = player1;
+        this.player2 = player2;
+        this.player1.setFuel(100);
+        this.player2.setFuel(100);
         BitmapFont font = new BitmapFont();
         // increase font size
         font.getData().setScale(1.5F);
         powerLabel = new Label("100", new Label.LabelStyle(font, Color.WHITE));
         angleLabel = new Label("45", new Label.LabelStyle(font, Color.WHITE));
-        player1.setAngleOfShooting(0);
-        player2.setAngleOfShooting(0);
-        player1.setPowerOfShooting(0);
-        player2.setPowerOfShooting(0);
-        player1.x  = 204;
-        player2.x = 1566;
+        this.player1.x  = 204;
+        this.player2.x = 1566;
         turn = 1;
 //        groundHeight = new ArrayList<Float>();
 //        // initialise ground heights to hilly terrain.
@@ -143,13 +139,11 @@ public class InGameScreen implements Screen, Serializable {
     }
 
     public InGameScreen(TankStars game, SavedGame savedGame) {
-        this(game);
-        player1 = savedGame.getPlayer1();
-        player2 = savedGame.getPlayer2();
+        this(game, savedGame.getPlayer1(), savedGame.getPlayer2());
         turn = savedGame.getTurn();
     }
 
-    public static int getWinner() {
+    public int getWinner() {
         if (player1.getHealth() <= 0) {
             return 2;
         } else if (player2.getHealth() <= 0) {
@@ -159,11 +153,11 @@ public class InGameScreen implements Screen, Serializable {
         }
     }
 
-    public static Player getPlayer1() {
+    public Player getPlayer1() {
         return player1;
     }
 
-    public static Player getPlayer2() {
+    public Player getPlayer2() {
         return player2;
     }
 
@@ -374,11 +368,11 @@ public class InGameScreen implements Screen, Serializable {
         // if health of any player is 0 then go to VictoryScreen
         if (player1.getHealth() <= 0) {
             this.dispose();
-            game.setScreen(new VictoryPage(game));
+            game.setScreen(new VictoryPage(game, 2));
         }
         if (player2.getHealth() <= 0) {
             this.dispose();
-            game.setScreen(new VictoryPage(game));
+            game.setScreen(new VictoryPage(game, 1));
         }
 
 

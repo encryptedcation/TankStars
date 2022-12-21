@@ -18,14 +18,14 @@ public class VictoryPage implements Screen {
     private Texture button;
 
 
-    public VictoryPage(TankStars game) {
+    public VictoryPage(TankStars game, int Winner) {
         this.game = game;
         stage = new Stage();
         img = new Texture("bg-1.png");
         MainMenu = new Texture("MAINMENU.png");
         MainMenuActive = new Texture("MAINMENUACTIVE.png");
         button = new Texture("Rectangle 23.png");
-        Winner = InGameScreen.getWinner();
+        this.Winner = Winner;
         if (Winner == 1) {
             victory = new Texture("PLAYER 1 WON.png");
         }

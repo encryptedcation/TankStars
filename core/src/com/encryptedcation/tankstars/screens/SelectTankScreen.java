@@ -100,7 +100,7 @@ public class SelectTankScreen implements Screen {
         stage.getBatch().draw(img, x, y);
         // if flagPlayer == 0, player 1 is choosing
         // if flagPlayer == 1, player 2 is choosing
-        if (flag == 0) {
+        if (flagPlayer == 0) {
             stage.getBatch().draw(playerOneChooseActive, 359, 926);
             stage.getBatch().draw(playerTwoChoose, 1201, 926);
         } else {
@@ -121,56 +121,86 @@ public class SelectTankScreen implements Screen {
         stage.getBatch().draw(smolMark, 986, 708);
         stage.getBatch().draw(smolToxic, 1249, 694);
         stage.getBatch().draw(smolBlazer, 1570, 708);
+        // show selected tank
+        switch (flag){
+            case 1:
+                stage.getBatch().draw(highlightedMark, 147, 657);
+                break;
+            case 2:
+                stage.getBatch().draw(highlightedToxic, 431, 657);
+                break;
+            case 3:
+                stage.getBatch().draw(highlightedBlazer, 715, 657);
+                break;
+            case 4:
+                stage.getBatch().draw(highlightedMark, 975, 657);
+                break;
+            case 5:
+                stage.getBatch().draw(highlightedToxic, 1259, 657);
+                break;
+            case 6:
+                stage.getBatch().draw(highlightedBlazer, 1543, 657);
+                break;
+        }
 
 
 //        ---------------------------------------------------
 
         // player 1 hovers first and can choose out of 3 tanks on the left, smolMark, smolToxic, smolBlazer
         // player 2 hovers second and can choose out of 3 tanks on the right, smolMark, smolToxic, smolBlazer
-        int flag = 0;
-        Tank t1 = new Mark("Mark", 0, 0, 0, 100, null);
-        Tank t2 = new Mark("Mark", 0, 0, 0, 100, null);
-              //----------------------------------------------------------------------
+        // Mehul: removed flag = 0 as it was setting flag  = 0 in every render
+        // also removing t1 and t2 since creating multiple tanks is not needed
+
+//        -----------------------------------------------------
+
+
 // if hovered over circleNoBG then it changes
         if (Gdx.input.getX() > 147 && Gdx.input.getX() < 147 + 256 && Gdx.input.getY() > 1080 - 657 - 256 && Gdx.input.getY() < 1080 - 657) {
             stage.getBatch().draw(highlightedMark, 147, 657);
             if (Gdx.input.isTouched()){
-
+                flag = 1;
                 stage.getBatch().draw(highlightedMark, 147, 657);
             }
         }
         if (Gdx.input.getX() > 431 && Gdx.input.getX() < 431 + 256 && Gdx.input.getY() > 1080 - 657 - 256 && Gdx.input.getY() < 1080 - 657) {
             stage.getBatch().draw(highlightedToxic, 431, 657);
             if (Gdx.input.isTouched()){
+                flag = 2;
                 stage.getBatch().draw(highlightedToxic, 431, 657);
             }
         }
         if (Gdx.input.getX() > 715 && Gdx.input.getX() < 715 + 256 && Gdx.input.getY() > 1080 - 657 - 256 && Gdx.input.getY() < 1080 - 657) {
             stage.getBatch().draw(highlightedBlazer, 715, 657);
             if (Gdx.input.isTouched()){
+                flag = 3;
                 stage.getBatch().draw(highlightedBlazer, 715, 657);
             }
         }
         if (Gdx.input.getX() > 975 && Gdx.input.getX() < 975 + 256 && Gdx.input.getY() > 1080 - 657 - 256 && Gdx.input.getY() < 1080 - 657) {
             stage.getBatch().draw(highlightedMark, 975, 657);
             if (Gdx.input.isTouched()){
+                flag = 4;
                 stage.getBatch().draw(highlightedMark, 975, 657);
             }
         }
         if (Gdx.input.getX() > 1259 && Gdx.input.getX() < 1259 + 256 && Gdx.input.getY() > 1080 - 657 - 256 && Gdx.input.getY() < 1080 - 657) {
             stage.getBatch().draw(highlightedToxic, 1259, 657);
             if (Gdx.input.isTouched()) {
+                flag = 5;
                 stage.getBatch().draw(highlightedToxic, 1259, 657);
             }
         }
         if (Gdx.input.getX() > 1543 && Gdx.input.getX() < 1543 + 256 && Gdx.input.getY() > 1080 - 657 - 256 && Gdx.input.getY() < 1080 - 657) {
             stage.getBatch().draw(highlightedBlazer, 1543, 657);
             if (Gdx.input.isTouched()) {
+                flag = 6;
                 stage.getBatch().draw(highlightedBlazer, 1543, 657);
             }
         }
 
         // if clicked, save highlight
+        // Mehul: We might need to change this as the Gdx.input.isTouched() is a very momentary action and the code does not reach this part.
+        // We can try shifting everything up
         if (Gdx.input.isTouched()) {
             if (Gdx.input.getX() > 147 && Gdx.input.getX() < 147 + 256 && Gdx.input.getY() > 1080 - 657 - 256 && Gdx.input.getY() < 1080 - 657) {
                 flag = 1;
@@ -204,31 +234,6 @@ public class SelectTankScreen implements Screen {
             }
         }
 
-        getPlayer2().setTank(t2);
-        // if flag is set, draw the highlighted image
-        if (flag == 1) {
-            stage.getBatch().draw(highlightedMark, 147, 657);
-        }
-        if (flag == 2) {
-            stage.getBatch().draw(highlightedToxic, 431, 657);
-        }
-        if (flag == 3) {
-            stage.getBatch().draw(highlightedBlazer, 715, 657);
-        }
-        if (flag == 4) {
-            stage.getBatch().draw(highlightedMark, 975, 657);
-        }
-        if (flag == 5) {
-            stage.getBatch().draw(highlightedToxic, 1259, 657);
-        }
-        if (flag == 6) {
-            stage.getBatch().draw(highlightedBlazer, 1543, 657);
-        }
-
-
-
-
-
 
 //        -----------------------------------------------------
 
@@ -238,12 +243,38 @@ public class SelectTankScreen implements Screen {
         if (Gdx.input.getX() < x + CHOOSE_BUTTON_WIDTH && Gdx.input.getX() > x && TankStars.HEIGHT - Gdx.input.getY() < CHOOSE_BUTTON_Y + CHOOSE_BUTTON_HEIGHT && TankStars.HEIGHT - Gdx.input.getY() > CHOOSE_BUTTON_Y) {
             stage.getBatch().draw(chooseSel, x, CHOOSE_BUTTON_Y, CHOOSE_BUTTON_WIDTH, CHOOSE_BUTTON_HEIGHT);
             if (Gdx.input.justTouched()) {
+                Tank tank = null;
+                switch (flag) {
+                    case 1:
+                        tank = new Mark("Mark", 0, 0, 0, 100, null);
+                        break;
+                    case 2:
+                        tank = new Toxic("Toxic", 0, 0, 0, 100, null);
+                        break;
+                    case 3:
+                        tank = new Blazer("Blazer", 0, 0, 0, 100, null);
+                        break;
+                    case 4:
+                        tank = new Mark("Mark", 0, 0, 0, 100, null);
+                        break;
+                    case 5:
+                        tank = new Toxic("Toxic", 0, 0, 0, 100, null);
+                        break;
+                    case 6:
+                        tank = new Blazer("Blazer", 0, 0, 0, 100, null);
+                        break;
+                    default:
+                        tank = new Mark("Mark", 0, 0, 0, 100, null);
+                        break;
+                }
                 if (flagPlayer == 0) {
                     flagPlayer = 1;
                     flag = 0;
+                    player1.setTank(tank);
                 } else if (flagPlayer == 1) {
                     // move to game screen
-                    game.setScreen(new InGameScreen(game));
+                    player2.setTank(tank);
+                    game.setScreen(new InGameScreen(game, player1, player2));
                 }
             }
         }
