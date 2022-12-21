@@ -15,10 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.encryptedcation.tankstars.Player;
-import com.encryptedcation.tankstars.SavedGame;
-import com.encryptedcation.tankstars.Tank;
-import com.encryptedcation.tankstars.TankStars;
+import com.encryptedcation.tankstars.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -72,6 +69,7 @@ public class InGameScreen implements Screen, Serializable {
     private Stage stage;
     private Texture fuelBar;
     private Skin skin;
+    private Attack attack;
 
     public InGameScreen(TankStars game, Player player1, Player player2) {
         blank = new Texture("blank.png");
@@ -122,6 +120,7 @@ public class InGameScreen implements Screen, Serializable {
         this.player1.x  = 204;
         this.player2.x = 1566;
         turn = 1;
+        attack = new Attack(20, 250, "mehul", "ananya");
 //        groundHeight = new ArrayList<Float>();
 //        // initialise ground heights to hilly terrain.
 //        float initialHeight = 500;
@@ -348,7 +347,7 @@ public class InGameScreen implements Screen, Serializable {
         initialPosition.x = currentPlayer.x + currentPlayer.getTank().getTexture().getWidth()/2;
         initialPosition.y = 465;
         initialVelocity = new Vector2((float) (currentPlayer.getPowerOfShooting() * Math.cos(currentPlayer.getAngleOfShooting() * Math.PI / 180)), (float) (currentPlayer.getPowerOfShooting() * Math.sin(currentPlayer.getAngleOfShooting() * Math.PI / 180)));
-        float timeForFall = (float) (8/5 * initialVelocity.y / 9.8);
+        float timeForFall = (float) (2 * initialVelocity.y / 9.8);
 
         // draw projectile trajectory using small circles and getX and getY methods
         Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
@@ -365,6 +364,17 @@ public class InGameScreen implements Screen, Serializable {
         if (Gdx.input.getX() > 1090 && Gdx.input.getX() < 1090 + fire.getWidth() && Gdx.input.getY() > 1080 - 158 - fire.getHeight() && Gdx.input.getY() < 1080 - 158) {
             stage.getBatch().draw(fireActive, 1090, 158);
             if (Gdx.input.justTouched()) {
+                float ProjectileLandedX = getX(timeForFall);
+                Player targetPlayer = turn == 1 ? player2 : player1;
+                float distanceFromTarget = Math.abs(ProjectileLandedX - targetPlayer.x - targetPlayer.getTank().getTexture().getWidth()/2);
+                if (attack.getRange() >= distanceFromTarget) {
+                    int reductionInHealth = (int) (attack.getDamage() * (1 - distanceFromTarget / attack.getRange()));
+                    targetPlayer.setHealth(targetPlayer.getHealth() - reductionInHealth);
+                }
+                System.out.println("Projectile landed at " + ProjectileLandedX);
+                System.out.println("Target tank at " + targetPlayer.x);
+                System.out.println("Distance from target " + distanceFromTarget);
+                System.out.println("Health of target " + targetPlayer.getHealth());
                 turn = turn == 1 ? 2 : 1;
                 player1.setPowerOfShooting(0);
                 player1.setAngleOfShooting(0);
