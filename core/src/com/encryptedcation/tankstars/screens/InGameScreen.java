@@ -370,6 +370,8 @@ public class InGameScreen implements Screen, Serializable {
                 if (attack.getRange() >= distanceFromTarget) {
                     int reductionInHealth = (int) (attack.getDamage() * (1 - distanceFromTarget / attack.getRange()));
                     targetPlayer.setHealth(targetPlayer.getHealth() - reductionInHealth);
+                    // move target player in direction of initial velocity of projectile proportional to damage
+                    targetPlayer.x = targetPlayer.x + (int) (initialVelocity.x * reductionInHealth / attack.getDamage());
                 }
                 System.out.println("Projectile landed at " + ProjectileLandedX);
                 System.out.println("Target tank at " + targetPlayer.x);
