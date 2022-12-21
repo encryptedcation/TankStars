@@ -168,20 +168,20 @@ public class InGameScreen implements Screen, Serializable {
     }
 
     private void handleInput(Player player){
-        if (player.getFuel() > 0) {
+        if (player.getTank().getFuel() > 0) {
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
                 player.x = player.x + 3;
-                player.setFuel(player.getFuel() - 1);
+                player.getTank().setFuel(player.getTank().getFuel() - 1);
             }
 
             if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
                 player.x = player.x - 3;
-                player.setFuel(player.getFuel() - 1);
+                player.getTank().setFuel(player.getTank().getFuel() - 1);
             }
         }
     }
 
-    public float gravity;
+    public float gravity = -9.8f;
     public Vector2 initialVelocity = new Vector2();
     public Vector2 initialPosition = new Vector2();
 
@@ -241,9 +241,9 @@ public class InGameScreen implements Screen, Serializable {
         stage.getBatch().draw(fire, 1090, 158);
         int currPlayerFuel = 0;
         if (turn == 1) {
-            currPlayerFuel = player1.getFuel();
+            currPlayerFuel = player1.getTank().getFuel();
         } else {
-            currPlayerFuel = player2.getFuel();
+            currPlayerFuel = player2.getTank().getFuel();
         }
         if (currPlayerFuel == 100) {
             stage.getBatch().draw(fuelBar, 263, 293, fuel.getWidth()-4, fuel.getHeight());
@@ -345,10 +345,10 @@ public class InGameScreen implements Screen, Serializable {
         }
 
         Player currentPlayer = turn == 1 ? player1 : player2;
-        initialPosition.x = currentPlayer.x;
-        initialPosition.y = 450;
+        initialPosition.x = currentPlayer.x + currentPlayer.getTank().getTexture().getWidth()/2;
+        initialPosition.y = 465;
         initialVelocity = new Vector2((float) (currentPlayer.getPowerOfShooting() * Math.cos(currentPlayer.getAngleOfShooting() * Math.PI / 180)), (float) (currentPlayer.getPowerOfShooting() * Math.sin(currentPlayer.getAngleOfShooting() * Math.PI / 180)));
-        float timeForFall = (float) (initialVelocity.y / -9.8);
+        float timeForFall = (float) (8/5 * initialVelocity.y / 9.8);
 
         // draw projectile trajectory using small circles and getX and getY methods
         Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
@@ -357,7 +357,7 @@ public class InGameScreen implements Screen, Serializable {
         Texture whiteCircle = new Texture(pixmap);
 
 
-        for (float t = 0; t < timeForFall; t += 0.01) {
+        for (float t = 0; t < timeForFall; t += 0.5) {
             stage.getBatch().draw(whiteCircle, getX(t), getY(t), 5, 5);
         }
 
@@ -368,10 +368,10 @@ public class InGameScreen implements Screen, Serializable {
                 turn = turn == 1 ? 2 : 1;
                 player1.setPowerOfShooting(0);
                 player1.setAngleOfShooting(0);
-                player1.setFuel(100);
+                player1.getTank().setFuel(100);
                 player2.setAngleOfShooting(0);
                 player2.setPowerOfShooting(0);
-                player2.setFuel(100);
+                player2.getTank().setFuel(100);
             }
         }
 

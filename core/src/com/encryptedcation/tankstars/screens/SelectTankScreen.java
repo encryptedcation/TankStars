@@ -73,8 +73,8 @@ public class SelectTankScreen implements Screen {
         playerTwoChooseActive = new Texture("playerTwoChooseActive.png");
         names = new Texture("names.png");
         stage = new Stage(new StretchViewport(1920, 1080));
-        player1 = new Player(1, new Mark("Mark", 0, 0, 0, 100, null), 100, 0, 0, 0);
-        player2 = new Player(2, new Mark("Mark", 0, 0, 0, 100, null), 100, 0, 0, 0);
+        player1 = new Player(1, new Mark("Mark", 0, 0, 0,  100, null), 100, 0, 0);
+        player2 = new Player(2, new Mark("Mark", 0, 0, 0, 100, null), 100, 0, 0);
     }
     public static Player getPlayer1() {
         return player1;

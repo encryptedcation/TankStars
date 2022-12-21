@@ -7,15 +7,13 @@ public class Player implements java.io.Serializable {
     private int health;
     private int angleOfShooting;
     private int powerOfShooting;
-    private int fuel;
 
-    public Player(int id, Tank tank, int health, int angleOfShooting, int powerOfShooting, int fuel) {
+    public Player(int id, Tank tank, int health, int angleOfShooting, int powerOfShooting) {
         this.id = id;
         this.tank = tank;
         this.health = health;
         this.angleOfShooting = angleOfShooting;
         this.powerOfShooting = powerOfShooting;
-        this.fuel = fuel;
     }
 
     public int getId() {
@@ -65,14 +63,6 @@ public class Player implements java.io.Serializable {
     public void setPowerOfShooting(int powerOfShooting) {
         this.powerOfShooting = powerOfShooting;
     }
-
-    public int getFuel() {
-        return fuel;
-    }
-    public void setFuel(int fuel) {
-        this.fuel = fuel;
-    }
-
     // shooting function
     private void shoot() {
         // TODO
