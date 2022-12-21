@@ -70,7 +70,7 @@ public class InGameScreen implements Screen, Serializable {
     private Texture fuelBar;
     private Skin skin;
     private Attack attack;
-
+    private Texture bam;
     public InGameScreen(TankStars game, Player player1, Player player2) {
         blank = new Texture("blank.png");
         ground = new Texture("ground - Copy.jpeg");
@@ -121,6 +121,8 @@ public class InGameScreen implements Screen, Serializable {
         this.player2.x = 1566;
         turn = 1;
         attack = new Attack(20, 250, "mehul", "ananya");
+        bam = new Texture("attack.png");
+
 //        groundHeight = new ArrayList<Float>();
 //        // initialise ground heights to hilly terrain.
 //        float initialHeight = 500;
@@ -366,6 +368,10 @@ public class InGameScreen implements Screen, Serializable {
             if (Gdx.input.justTouched()) {
                 float ProjectileLandedX = getX(timeForFall);
                 Player targetPlayer = turn == 1 ? player2 : player1;
+                float impactPositionX = getX(timeForFall);
+                float impactPositionY = targetPlayer.y;
+                stage.getBatch().draw(bam, impactPositionX, impactPositionY);
+
                 float distanceFromTarget = Math.abs(ProjectileLandedX - targetPlayer.x - targetPlayer.getTank().getTexture().getWidth()/2);
                 if (attack.getRange() >= distanceFromTarget) {
                     int reductionInHealth = (int) (attack.getDamage() * (1 - distanceFromTarget / attack.getRange()));
